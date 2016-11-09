@@ -1,4 +1,21 @@
-from capacitor.capsim import CapSimulator
+
+from math import sqrt, exp
+
+test = exp(0)
+
+MaximumAmount = 4653.6525
+tau = 60771.9922442 / 5.0
+
+percent = 0
+
+while percent < 100:
+    StartingAmount = MaximumAmount*(percent/100)
+    EndingAmount = ((1.0+(sqrt(StartingAmount/MaximumAmount)-1.0)*exp((0-1000)/tau))**2)*MaximumAmount
+    print(str(percent) + "% " + str(EndingAmount-StartingAmount))
+    percent += 1
+
+
+pass
 
 from simulations.capacitor import Capacitor
 
@@ -26,7 +43,7 @@ module_list.append(
         'Amount': 3100,
         'CycleTime': 12,
         'Charges': 1,
-        'ReloadTime': 60,
+        'ReloadTime': 10,
     }
 ) # Heavy Cap Booster with 3200 charges
 '''
