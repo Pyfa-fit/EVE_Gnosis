@@ -1,10 +1,13 @@
 from simulations.capacitor import Capacitor
 from formulas.formulas import Formulas
+from datetime import datetime
 
 module_list = []
 
 capacitor_amount = 375
 capacitor_recharge = 105468.75
+
+print("Start time: ", datetime.now().time())
 
 module_list.append(
     {
@@ -13,7 +16,7 @@ module_list.append(
         'Charges': False,
         'ReloadTime': False,
     }
-) # Small T2 Nos
+)  # Small T2 Nos
 
 module_list.append(
     {
@@ -22,7 +25,7 @@ module_list.append(
         'Charges': False,
         'ReloadTime': False,
     }
-) # J5b Enduring Warp Scrambler
+)  # J5b Enduring Warp Scrambler
 
 module_list.append(
     {
@@ -31,7 +34,7 @@ module_list.append(
         'Charges': False,
         'ReloadTime': False,
     }
-) # X5 Enduring Statis Webifier
+)  # X5 Enduring Statis Webifier
 
 module_list.append(
     {
@@ -40,7 +43,7 @@ module_list.append(
         'Charges': False,
         'ReloadTime': False,
     }
-) # Small Ancilliary Armor Repairer
+)  # Small Ancilliary Armor Repairer
 
 module_list.append(
     {
@@ -49,14 +52,17 @@ module_list.append(
         'Charges': False,
         'ReloadTime': False,
     }
-) # Reactive Armor Hardener
+)  # Reactive Armor Hardener
 
 return_value = Capacitor.CapacitorTimeSimulator(module_list, capacitor_amount, capacitor_recharge)
 return_matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
-pass # Add break here if you want to see anything.
+pass  # Add break here if you want to see anything.
 
+print("End time: ", datetime.now().time())
 
 '''
+Note that not all modules effect cap.  Even though the full fit is below,most of the modules have no impact on cap.
+
 [Vengeance, Heavy Tackle]
 
 Energized Adaptive Nano Membrane II
@@ -71,7 +77,7 @@ X5 Enduring Stasis Webifier
 Rocket Launcher II, Nova Rage Rocket
 Rocket Launcher II, Nova Rage Rocket
 Rocket Launcher II, Nova Rage Rocket
-Rocket Launcher II
+Rocket Launcher II, Nova Rage Rocket
 Small Energy Nosferatu II
 
 Small Anti-Thermal Pump II
