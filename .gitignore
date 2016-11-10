@@ -1,3 +1,23 @@
+#Python specific
+*.pyc
+
+#Kwrite/Gedit/Other crapapps making backups
+*~
+
+#Patch files
+*.patch
+
+#Personal
+/saveddata/
+
+#Pyfa file
+pyfaFits.html
+
+#Temporary files
+*.py__jb_tmp__
+
+# Based on https://github.com/github/gitignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -23,6 +43,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+Pyfa.egg-info/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -79,6 +100,7 @@ celerybeat-schedule
 .env
 
 # virtualenv
+.venv/
 venv/
 ENV/
 
@@ -87,3 +109,13 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Eclipse project settings
+.project
+.pydevproject
+.settings
+
+# Pycharm project settings
+.idea
+.idea/
+eos.iml
