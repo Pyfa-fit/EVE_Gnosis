@@ -20,7 +20,14 @@ class Formulas(object):
         """
         tau = recharge_rate / 5.0
         time_diff = start_time - end_time
-        return ((1.0 + (sqrt(current_amount / maximum_amount) - 1.0) * exp(time_diff / tau)) ** 2) * maximum_amount
+        new_amount = ((1.0 + (sqrt(current_amount / maximum_amount) - 1.0) * exp(time_diff / tau)) ** 2) * maximum_amount
+
+        if new_amount > maximum_amount:
+            # Sanity check and make sure we don't return more than our maximum somehow.
+            return maximum_amount
+        else:
+            return new_amount
+
 
     @staticmethod
     def capacitor_shield_regen_matrix(capacitor_amount, capacitor_time):
