@@ -17,21 +17,41 @@ class Capacitor(object):
 
         # We have to handle the first run special, because there is no reload.
         module_timers = []
-        print("First Run")
+        # print("First Run")
         for i, module in enumerate(module_list):
             if module['Amount']:
-                if module['Charges']:
-                    # If we have a module with charges, don't run it right away.
-                    # It's most likely a cap booster, and that would be a waste of a charge.
-                    module_time = module['CycleTime']
-                    new_charges = module['Charges']
-                else:
+                module_time = 0
+                try:
+                    if module['DelayTime']:
+                        # We have a delay before we need to run this, so we're going to not run it right away.
+                        # This is used to stagger modules, so we don't start them all at the same time.
+                        module_time += module['DelayTime']
+                except KeyError:
+                    # Key doesn't exist, do nothing
+                    pass
+
+                try:
+                    if module['Charges']:
+                        # If we have a module with charges, don't run it right away.
+                        # It's most likely a cap booster, ancillary shield/armor repper, etc
+                        # and that would be a waste of a charge.
+                        module_time += module['CycleTime']
+                        new_charges = module['Charges']
+                    else:
+                        new_charges = False
+                except KeyError:
+                    # Key doesn't exist, do nothing
+                    new_charges = False
+
+                if not new_charges:
                     # Regular module without charges.
                     # Neut, Nos, remote Cap Trans.
                     # Go ahead and apply to the capacitor
                     current_capcitor_amount += module['Amount']
-                    module_time = module['CycleTime']
+                    module_time += module['CycleTime']
                     new_charges = False
+
+
 
                     # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
                     if current_capcitor_amount > max_capacitor_amount:
@@ -51,7 +71,7 @@ class Capacitor(object):
                 # Module has nothing to add/drain. Why is it here?
                 pass
 
-        print("Full Run")
+        # print("Full Run")
         while run_tick:
             module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
 
@@ -79,9 +99,6 @@ class Capacitor(object):
                     elif current_capcitor_amount < 0:
                         current_capcitor_amount = 0
 
-                    testID = module['ID']
-                    testCharges = module['Charges']
-                    testListCharges = module_list[module['ID']]['Charges']
                     if module['Charges']:
                         new_charges = module['Charges'] - 1
 
@@ -107,10 +124,15 @@ class Capacitor(object):
                 low_water_mark_elapsed_time = total_time_count
                 time_count = 0
                 # print("Low water mark: " + str(low_water_mark) + " Seconds: " + str(total_time_count / 1000))
+            elif current_capcitor_amount == 0:
+                # We've run out of cap, go ahead and break out of the loop.
+                break
             else:
                 time_count += 1
 
                 if time_count > 100:
+                    # We have performed 100 loops since the last low water mark was found.
+                    # Break out as we are highly likely to be cap stable here.
                     break
                 else:
                     continue
