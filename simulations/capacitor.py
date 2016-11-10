@@ -106,7 +106,7 @@ class Capacitor(object):
                 low_water_mark = current_capcitor_amount
                 low_water_mark_elapsed_time = total_time_count
                 time_count = 0
-                print("Low water mark: " + str(low_water_mark) + " Seconds: " + str(total_time_count / 1000))
+                # print("Low water mark: " + str(low_water_mark) + " Seconds: " + str(total_time_count / 1000))
             else:
                 time_count += 1
 
