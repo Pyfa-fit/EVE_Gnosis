@@ -46,7 +46,7 @@ class Formulas(object):
             tick_amount = Formulas.capacitor_shield_tick(capacitor_amount, current_amount, capacitor_time)
             regen_matrix.append(
                 {
-                    'Percent': percent,
+                    'Percent': round(percent, 2),
                     'CapacitorAmountPostTick': tick_amount,
                     'DeltaAmount': tick_amount - current_amount
                 }
