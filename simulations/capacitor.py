@@ -24,7 +24,8 @@ class Capacitor(object):
                 try:
                     if module['DelayTime']:
                         # We have a delay before we need to run this, so we're going to not run it right away.
-                        # This is used to stagger modules, so we don't start them all at the same time.
+                        # This can be used to stagger modules, so we don't start them all at the same time.
+                        # Can also use this to not run specific modules right away.
                         module_time += module['DelayTime']
                 except KeyError:
                     # Key doesn't exist, do nothing
@@ -32,32 +33,13 @@ class Capacitor(object):
 
                 try:
                     if module['Charges']:
-                        # If we have a module with charges, don't run it right away.
-                        # It's most likely a cap booster, ancillary shield/armor repper, etc
-                        # and that would be a waste of a charge.
-                        module_time += module['CycleTime']
+                        # Add our chargese so we can properly count down.
                         new_charges = module['Charges']
                     else:
                         new_charges = False
                 except KeyError:
                     # Key doesn't exist, do nothing
                     new_charges = False
-
-                if not new_charges:
-                    # Regular module without charges.
-                    # Neut, Nos, remote Cap Trans.
-                    # Go ahead and apply to the capacitor
-                    current_capcitor_amount += module['Amount']
-                    module_time += module['CycleTime']
-                    new_charges = False
-
-
-
-                    # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
-                    if current_capcitor_amount > max_capacitor_amount:
-                        current_capcitor_amount = max_capacitor_amount
-                    elif current_capcitor_amount < 0:
-                        current_capcitor_amount = 0
 
                 # Populate a dict with the module IDs so we can create timers.
                 module_timers.append(
@@ -72,6 +54,7 @@ class Capacitor(object):
                 pass
 
         # print("Full Run")
+        cache_runs_dict = []
         while run_tick:
             module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
 
@@ -81,8 +64,11 @@ class Capacitor(object):
             # print("Seconds elapsed: " + str(elapsed_time))
 
             # Run our capacitor regen
-            current_capcitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
+            new_capacitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
                                                                      capacitor_time, elapsed_time)
+
+            delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount
+            current_capcitor_amount = new_capacitor_amount
 
             for i, module in enumerate(module_timers):
                 module_time = module['Time'] - elapsed_time
@@ -119,6 +105,15 @@ class Capacitor(object):
 
             # print ("Current Capacitor: " + str(current_capcitor_amount) + " Percent: " + str(current_capcitor_amount/max_capacitor_amount))
 
+            cache_runs_dict.append(
+                {
+                    'Current Time': total_time_count,
+                    'Current Capacitor': current_capcitor_amount,
+                    'Capacitor Percentage': round(current_capcitor_amount/max_capacitor_amount,2),
+                    'Capacitor Regen Delta': delta_capacitor_regen,
+                }
+            )
+
             if low_water_mark > current_capcitor_amount:
                 low_water_mark = current_capcitor_amount
                 low_water_mark_elapsed_time = total_time_count
@@ -137,8 +132,8 @@ class Capacitor(object):
                 else:
                     continue
 
-        return_dict = [{
+        stability_dict = {
             'Time': low_water_mark_elapsed_time,
             'LowWaterMark': low_water_mark
-        }]
-        return return_dict
+        }
+        return {'Stability': stability_dict, 'Cached Runs': cache_runs_dict}
