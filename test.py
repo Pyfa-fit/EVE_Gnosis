@@ -1,5 +1,6 @@
-
 from math import sqrt, exp
+
+from simulations.capacitor import Capacitor
 
 test = exp(0)
 
@@ -9,22 +10,18 @@ tau = 60771.9922442 / 5.0
 percent = 0
 
 while percent < 100:
-    StartingAmount = MaximumAmount*(percent/100)
-    EndingAmount = ((1.0+(sqrt(StartingAmount/MaximumAmount)-1.0)*exp((0-1000)/tau))**2)*MaximumAmount
-    print(str(percent) + "% " + str(EndingAmount-StartingAmount))
+    StartingAmount = MaximumAmount * (percent / 100)
+    EndingAmount = ((1.0 + (sqrt(StartingAmount / MaximumAmount) - 1.0) * exp((0 - 1000) / tau)) ** 2) * MaximumAmount
+    print(str(percent) + "% " + str(EndingAmount - StartingAmount))
     percent += 1
 
-
 pass
-
-from simulations.capacitor import Capacitor
-
 
 # capacitor amount, capacitor regen time
 # modifier amount, cycle time
 
 module_list = []
-#module_list.append([Amount (GJ), CycleTime (S), NumCharges (Count), ReloadTime (S))
+# module_list.append([Amount (GJ), CycleTime (S), NumCharges (Count), ReloadTime (S))
 
 i = 0
 while i < 5:
@@ -51,4 +48,4 @@ module_list.append(
 capacitor_amount = 7439.0625
 capacitor_recharge = 528
 
-return_value = Capacitor.CapacitorTimeSimulator(module_list, capacitor_amount, capacitor_recharge)
+return_value = Capacitor.capacitor_time_simulator(module_list, capacitor_amount, capacitor_recharge)

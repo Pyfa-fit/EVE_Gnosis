@@ -1,8 +1,6 @@
-import heapq
-import time
-import copy
-from formulas.formulas import Formulas
 import operator
+
+from formulas.formulas import Formulas
 
 
 class Capacitor(object):
@@ -10,7 +8,7 @@ class Capacitor(object):
         pass
 
     @staticmethod
-    def CapacitorTimeSimulator(module_list, max_capacitor_amount, capacitor_time):
+    def capacitor_time_simulator(module_list, max_capacitor_amount, capacitor_time):
         run_tick = True
         low_water_mark = current_capcitor_amount = max_capacitor_amount
         low_water_mark_elapsed_time = total_time_count = time_count = 0
@@ -65,7 +63,7 @@ class Capacitor(object):
 
             # Run our capacitor regen
             new_capacitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
-                                                                     capacitor_time, elapsed_time)
+                                                                  capacitor_time, elapsed_time)
 
             delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount
             current_capcitor_amount = new_capacitor_amount
@@ -103,13 +101,14 @@ class Capacitor(object):
                 # Set new values
                 module_timers[i]['Time'] = module_time
 
-            # print ("Current Capacitor: " + str(current_capcitor_amount) + " Percent: " + str(current_capcitor_amount/max_capacitor_amount))
+            # print ("Current Capacitor: " + str(current_capcitor_amount) +
+            #       " Percent: " + str(current_capcitor_amount/max_capacitor_amount))
 
             cache_runs_dict.append(
                 {
                     'Current Time': total_time_count,
                     'Current Capacitor': current_capcitor_amount,
-                    'Capacitor Percentage': round(current_capcitor_amount/max_capacitor_amount,2),
+                    'Capacitor Percentage': round(current_capcitor_amount / max_capacitor_amount, 2),
                     'Capacitor Regen Delta': delta_capacitor_regen,
                 }
             )
