@@ -109,7 +109,7 @@ while i < 4:
             'CycleTime': cycle_time,
             'DelayTime': delay_time,
         }
-    )# Add 4 Curse T2 Medium Neutralizers
+    )# Add 4 Curse powered Medium Energy Neutralizer II
     i += 1
     delay_time += cycle_time/4 # Add a delay to stagger our neuts
 
@@ -118,7 +118,7 @@ module_list.append(
         'Amount': -64.8,
         'CycleTime': 5000,
     }
-)
+) # Medium Energy Nosferatu II
 
 return_value = Capacitor.CapacitorTimeSimulator(module_list, capacitor_amount, capacitor_recharge)
 return_matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
