@@ -1,5 +1,6 @@
 from math import sqrt, exp
 
+# noinspection PyPackageRequirements
 from simulations.capacitor import Capacitor
 
 test = exp(0)

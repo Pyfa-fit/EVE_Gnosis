@@ -1,3 +1,4 @@
+# noinspection PyPackageRequirements
 from simulations.capacitor import Capacitor
 from formulas.formulas import Formulas
 from datetime import datetime
