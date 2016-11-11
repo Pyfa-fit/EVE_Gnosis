@@ -7,7 +7,7 @@ module_list = []
 capacitor_amount = 4653.6525
 capacitor_recharge = 60771.9922442
 
-print(datetime.now().time())
+print("Start: ",datetime.now().time())
 
 # ________________________________________________________
 # RegenGu Modules
@@ -58,7 +58,7 @@ return_value = Capacitor.CapacitorTimeSimulator(module_list, capacitor_amount, c
 return_matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
 pass # Add break here if you want to see anything.
 
-print(datetime.now().time())
+print("Base calc time: ", datetime.now().time())
 
 '''
 Note that not all modules effect cap.  Even though the full fit is below,most of the modules have no impact on cap.
@@ -93,10 +93,39 @@ Tengu Electronics - Dissolution Sequencer
 Tengu Engineering - Capacitor Regeneration Matrix
 Tengu Offensive - Accelerated Ejection Bay
 Tengu Propulsion - Fuel Catalyst
+'''
 
+'''
+Now add a Curse and see how the cap holds up.
+'''
 
+i = 0
+delay_time = 0
+cycle_time = 12000
+while i < 4:
+    module_list.append(
+        {
+            'Amount': -324,
+            'CycleTime': cycle_time,
+            'DelayTime': delay_time,
+        }
+    )# Add 4 Curse T2 Medium Neutralizers
+    i += 1
+    delay_time += cycle_time/4 # Add a delay to stagger our neuts
 
+module_list.append(
+    {
+        'Amount': -64.8,
+        'CycleTime': 5000,
+    }
+)
 
+return_value = Capacitor.CapacitorTimeSimulator(module_list, capacitor_amount, capacitor_recharge)
+return_matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
+
+print("End time: ", datetime.now().time()) # Add break here if you want to see anything.
+
+'''
 [Curse, Shield Std]
 
 Damage Control II
