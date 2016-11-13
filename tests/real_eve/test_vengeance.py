@@ -1,16 +1,37 @@
-from unittest.mock import Mock
-from simulations.capacitor import Capacitor
-from formulas.formulas import Formulas
+from gnosis.simulations.capacitor import capacitor
+from gnosis.formulas.formulas import formulas
+import pytest
+import operator
 
 #from tests.restriction_tracker.restriction_testcase import RestrictionTestCase
 
 
-class test_vengeance_stats():
-    """Check functionality of booster slot index restriction"""
+"""Check functionality of booster slot index restriction"""
 
+def build_module_list():
     module_list = []
-    capacitor_amount = 375
-    capacitor_recharge = 105468.75
+
+    '''
+    [Vengeance, Heavy Tackle]
+
+    Energized Adaptive Nano Membrane II
+    Small Ancillary Armor Repairer
+    Reactive Armor Hardener
+    True Sansha Adaptive Nano Plating
+
+    5MN Quad LiF Restrained Microwarpdrive
+    J5b Enduring Warp Scrambler
+    X5 Enduring Stasis Webifier
+
+    Rocket Launcher II, Nova Rage Rocket
+    Rocket Launcher II, Nova Rage Rocket
+    Rocket Launcher II, Nova Rage Rocket
+    Rocket Launcher II, Nova Rage Rocket
+    Small Energy Nosferatu II
+
+    Small Anti-Thermal Pump II
+    Small Auxiliary Nano Pump II
+    '''
 
     module_list.append(
         {
@@ -57,56 +78,40 @@ class test_vengeance_stats():
         }
     )  # Reactive Armor Hardener
 
-    '''
-    [Vengeance, Heavy Tackle]
-
-    Energized Adaptive Nano Membrane II
-    Small Ancillary Armor Repairer
-    Reactive Armor Hardener
-    True Sansha Adaptive Nano Plating
-
-    5MN Quad LiF Restrained Microwarpdrive
-    J5b Enduring Warp Scrambler
-    X5 Enduring Stasis Webifier
-
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Small Energy Nosferatu II
-
-    Small Anti-Thermal Pump II
-    Small Auxiliary Nano Pump II
-    '''
-
-    def test_fail(self):
-        # Check that if 2 or more holders are put into single slot
-        # index, error is raised
-        return_value = Capacitor.capacitor_time_simulator(self.module_list, self.capacitor_amount, self.capacitor_recharge)
+    return module_list
 
 
-    def test_fail_dos(self):
-        return_matrix = Formulas.capacitor_shield_regen_matrix(self.capacitor_amount, self.capacitor_recharge)
+def capacitor_amount():
+    capacitor_amount = 375
+    return capacitor_amount
 
-    def test_add_does_not_set_default(mock_data_handler, mock_cache_handler):
-        SourceManager.add('test', mock_data_handler, mock_cache_handler)
+def capacitor_recharge():
+    capacitor_recharge = 105468.75
+    return capacitor_recharge
 
-        assert SourceManager.default is None
+def simulation_matrix():
+    simulation_matrix = capacitor.capacitor_time_simulator(build_module_list(),
+                                                           capacitor_amount(),
+                                                           capacitor_recharge())
+    return simulation_matrix
 
-    def test_fail_other_holder_class(self):
-        # Make sure holders of all classes are affected
-        item = self.ch.type_(type_id=1, attributes={Attribute.boosterness: 120})
-        holder1 = Mock(state=State.offline, item=item, _domain=Domain.ship, spec_set=Module(1))
-        holder2 = Mock(state=State.offline, item=item, _domain=Domain.ship, spec_set=Module(1))
-        self.track_holder(holder1)
-        self.track_holder(holder2)
-        restriction_error1 = self.get_restriction_error(holder1, Restriction.booster_index)
-        self.assertIsNotNone(restriction_error1)
-        self.assertEqual(restriction_error1.holder_slot_index, 120)
-        restriction_error2 = self.get_restriction_error(holder2, Restriction.booster_index)
-        self.assertIsNotNone(restriction_error2)
-        self.assertEqual(restriction_error2.holder_slot_index, 120)
-        self.untrack_holder(holder1)
-        self.untrack_holder(holder2)
-        self.assertEqual(len(self.log), 0)
-        self.assert_restriction_buffers_empty()
+def regen_matrix():
+    regen_matrix = formulas.capacitor_shield_regen_matrix(capacitor_amount(), capacitor_recharge())
+    return regen_matrix
+
+def test_peak_capacitor_regen():
+    # Check that the peak capacitor regen is the expected delta and percent
+    expected_capacitor_delta = 8.887120876962797
+    expected_capacitor_percent = 0.24
+    high_water_percent = 0
+    high_water_delta = 0
+    matrix = regen_matrix()
+    for item in matrix:
+        if high_water_delta < item['DeltaAmount']:
+            high_water_percent = item['Percent']
+            high_water_delta = item['DeltaAmount']
+
+    assert expected_capacitor_delta == high_water_delta
+    assert expected_capacitor_percent == high_water_percent
+
+
