@@ -1,5 +1,12 @@
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.getcwd()))
+
 from gnosis.simulations.capacitor import capacitor
 from gnosis.formulas.formulas import formulas
+
+
 import pytest
 import operator
 
