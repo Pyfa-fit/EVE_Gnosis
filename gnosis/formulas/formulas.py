@@ -1,7 +1,7 @@
 from math import sqrt, exp
 
 
-class Formulas(object):
+class formulas(object):
     def __init__(self):
         pass
 
@@ -13,7 +13,7 @@ class Formulas(object):
         :param recharge_rate:   Recharge time listed for the capacitor/shield, in milliseconds
         :param end_time:        The length of time that we are running, in milliseconds
         :param start_time:      The length of time that we are starting, in milliseconds (unlikely to be used)
-        :return:                Returns the new capacitor amount in giagjoules (GJ)
+        :return:                Returns the new capacitor amount in gigajoules (GJ)
 
         This function assumes nothing else is at play to change the values while it's being calculated.
         Formula validated and confirmed by CCP Larrikin. <3
@@ -21,8 +21,7 @@ class Formulas(object):
         tau = recharge_rate / 5.0
         time_diff = start_time - end_time
         new_amount = (
-                         (1.0 + (sqrt(current_amount / maximum_amount) - 1.0) * exp(time_diff / tau))
-                         ** 2
+                         (1.0 + (sqrt(current_amount / maximum_amount) - 1.0) * exp(time_diff / tau)) ** 2
                      ) * maximum_amount
 
         if new_amount > maximum_amount:
@@ -45,7 +44,7 @@ class Formulas(object):
         percent = 0
         while percent < 1:
             current_amount = capacitor_amount * percent
-            tick_amount = Formulas.capacitor_shield_tick(capacitor_amount, current_amount, capacitor_time)
+            tick_amount = formulas.capacitor_shield_tick(capacitor_amount, current_amount, capacitor_time)
             regen_matrix.append(
                 {
                     'Percent': round(percent, 2),
