@@ -1,6 +1,6 @@
 # noinspection PyPackageRequirements
-from simulations.capacitor import Capacitor
-from formulas.formulas import Formulas
+from gnosis.simulations.capacitor import capacitor
+from gnosis.formulas.formulas import formulas
 from datetime import datetime
 
 module_list = []
