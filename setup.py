@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 parsed_reqs = parse_requirements('requirements.txt', session=False)
 install_requires = [str(ir.req) for ir in parsed_reqs]
 
-setup(name='Gnosis',
+setup(name='EVE_Gnosis',
       version='1.0',
       description='EVE Online Formulas and Simulations',
       author='Ebag Trescientas',
