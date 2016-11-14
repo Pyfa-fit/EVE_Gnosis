@@ -11,7 +11,7 @@ class Capacitor(object):
     def capacitor_time_simulator(module_list, max_capacitor_amount, capacitor_time):
         run_tick = True
         low_water_mark = current_capcitor_amount = max_capacitor_amount
-        low_water_mark_elapsed_time = total_time_count = time_count = 0
+        count_ticks = low_water_mark_elapsed_time = total_time_count = last_drought = 0
 
         # We have to handle the first run special, because there is no reload.
         module_timers = []
@@ -54,6 +54,7 @@ class Capacitor(object):
         # print("Full Run")
         cache_runs_dict = []
         while run_tick:
+            count_ticks += 1
             module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
 
             # Get the time until the next module runs.
@@ -83,26 +84,31 @@ class Capacitor(object):
                     elif current_capcitor_amount < 0:
                         current_capcitor_amount = 0
 
-                    if module['Charges']:
-                        new_charges = module['Charges'] - 1
+                    # Find our reload time, set to False if doesn't exist
+                    try:
+                        reload_time = module_list[module['ID']]['ReloadTime']
+                    except KeyError:
+                        reload_time = False
 
-                        if new_charges <= 0:
-                            try:
-                                if module_list[module['ID']]['ReloadTime']:
-                                    module_time += module_list[module['ID']]['ReloadTime']
+                    # Find how many charges we have, and subtract 1 if we have more than 0
+                    try:
+                        new_charges = module['Charges']
+                        if new_charges is not False and new_charges > 0:
+                            new_charges = module['Charges'] - 1
+                    except KeyError:
+                        new_charges = False
 
-                                new_charges = module_list[module['ID']]['Charges']
-                            except KeyError:
-                                # Attribute doesn't exist, do nothing
-                                pass
+                    # If we are out of charges, or charges is false and we still have a reload (reactivation delay),
+                    # then delay the next execution by the reload_time
+                    if (new_charges <= 0 or new_charges is False) and reload_time:
+                        module_time += reload_time
 
-                        module_timers[i]['Charges'] = new_charges
+                    # If we're out of charges, and charges doesn't equal false, reset our charge count so we're reloaded
+                    if new_charges <= 0 and new_charges is not False:
+                        module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
 
                 # Set new values
                 module_timers[i]['Time'] = module_time
-
-            # print ("Current Capacitor: " + str(current_capcitor_amount) +
-            #       " Percent: " + str(current_capcitor_amount/max_capacitor_amount))
 
             cache_runs_dict.append(
                 {
@@ -114,22 +120,20 @@ class Capacitor(object):
             )
 
             if low_water_mark > current_capcitor_amount:
+                # Found a new capacitor low water mark.  Mark it, so we can report it later.
                 low_water_mark = current_capcitor_amount
                 low_water_mark_elapsed_time = total_time_count
-                time_count = 0
-                # print("Low water mark: " + str(low_water_mark) + " Seconds: " + str(total_time_count / 1000))
+                last_drought = 0
             elif current_capcitor_amount == 0:
                 # We've run out of cap, go ahead and break out of the loop.
                 break
             else:
-                time_count += 1
+                last_drought += 1
 
-                if time_count > 100:
+                if last_drought > 100:
                     # We have performed 100 loops since the last low water mark was found.
                     # Break out as we are highly likely to be cap stable here.
                     break
-                else:
-                    continue
 
         stability_dict = {
             'Time': low_water_mark_elapsed_time,

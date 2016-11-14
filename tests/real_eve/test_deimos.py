@@ -138,9 +138,9 @@ def test_peak_capacitor_regen():
 
 
 def test_simulation():
-    expected_cached_run_count = 226
-    expected_low_water_mark = 1339.2587796349806
-    expected_time = 180000
+    expected_cached_run_count = 451
+    expected_low_water_mark = 1412.806156339044
+    expected_time = 440999.9999999997
     matrix = simulation_matrix()
     cached_runs_count = 0
     for _ in matrix['Cached Runs']:
