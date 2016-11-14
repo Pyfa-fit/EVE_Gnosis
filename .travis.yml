@@ -4,10 +4,17 @@ python:
 env:
   - TOXENV=py35
   - TOXENV=pep8
+  global:
+    secure: "GjWm0u7oobLXakqxs19BI/Eu28mXGOFu8KVZzv6gGkQ3v+cvw6T0cdiTr8M1jXQVqE3V2t7EDnK9oXILNuT2uueYfD2WbF5weT/RDT1GxmtmD7IUlLWKqZo58FXIpQ2n6LtTTOn1GkjOgu/HUvJhNocvEbbrE65wVTwe99DGJq1nyo9BePNBjKr89EzvgeEbDe0XCwqexPlY1fruDCu7+UMa5ST1UA1oMmSj7NKAOFcus/VNRudyCyb9pK51W9qHk6BbpOJegfobV7U9DO9CbAgvNpEbzcZ0DtjphEexg+anzLZCbxn20COSAih89qb+lP/EOGOvtC5D6q8J5SgTBaLJL/WnUf40bDCGm46G3zCyFfLZTdAxjrwXnOv+2yk8o5jXNGhGzb+1uvOw+rtJsxDJ+ZfrXS2l6zQZ+IOHirpUGltQAus9ItupWPm4o7UqSxArU2+Qvs0D1vY6OMmIB8PrS+xwcp95T+wx4bCBn1T1IwUJncgB79/KRtHNtkUlj0I5pBW8j881hJP8U7LNubUes8vdg41MOovXhHW5EwJQ0W0arVuDQ32NTFOncjFVtMxOwVjSBXq8IQIVr/4h6nJ9cxojdM7a5FS415A1eJrcKqrX1LxRnev8ecnlp/CxHuh+gruqQK3jJXfmdtolTALiLAHm8bGB4Ee4fkE0Anw="
 before_install:
   - pip install tox
 script:
   - tox
 after_success:
   - coveralls
-
+deploy:
+  provider: pypi
+  distributions: "sdist bdist_wheel"
+  user: Ebag333
+  on:
+    repo: Ebag333/gnosis
