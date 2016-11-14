@@ -1,7 +1,7 @@
 from distutils.core import setup
 from pip.req import parse_requirements
 from setuptools import setup, find_packages
-from eos import __version__
+
 
 parsed_reqs = parse_requirements('requirements.txt', session=False)
 install_requires = [str(ir.req) for ir in parsed_reqs]
