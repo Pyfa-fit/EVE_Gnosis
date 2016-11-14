@@ -1,9 +1,9 @@
 import operator
 
-from gnosis.formulas.formulas import formulas
+from gnosis.formulas.formulas import Formulas
 
 
-class capacitor(object):
+class Capacitor(object):
     def __init__(self):
         pass
 
@@ -62,7 +62,7 @@ class capacitor(object):
             # print("Seconds elapsed: " + str(elapsed_time))
 
             # Run our capacitor regen
-            new_capacitor_amount = formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
+            new_capacitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
                                                                   capacitor_time, elapsed_time)
 
             delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount

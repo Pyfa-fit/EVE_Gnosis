@@ -1,7 +1,7 @@
 from math import sqrt, exp
 
 
-class formulas(object):
+class Formulas(object):
     def __init__(self):
         pass
 
@@ -44,7 +44,7 @@ class formulas(object):
         percent = 0
         while percent < 1:
             current_amount = capacitor_amount * percent
-            tick_amount = formulas.capacitor_shield_tick(capacitor_amount, current_amount, capacitor_time)
+            tick_amount = Formulas.capacitor_shield_tick(capacitor_amount, current_amount, capacitor_time)
             regen_matrix.append(
                 {
                     'Percent': round(percent, 2),

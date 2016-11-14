@@ -1,23 +1,13 @@
 import os
 import sys
 
-#sys.path.insert(0, os.path.dirname(os.getcwd()))
-
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Add Gnosis module to python paths
 sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
 
-from gnosis.simulations.capacitor import capacitor
-from gnosis.formulas.formulas import formulas
+from gnosis.simulations.capacitor import Capacitor
+from gnosis.formulas.formulas import Formulas
 
-
-import pytest
-import operator
-
-#from tests.restriction_tracker.restriction_testcase import RestrictionTestCase
-
-
-"""Check functionality of booster slot index restriction"""
 
 def build_module_list():
     module_list = []
@@ -93,36 +83,48 @@ def build_module_list():
 
 
 def capacitor_amount():
-    capacitor_amount = 375
-    return capacitor_amount
+    value = 375
+    return value
+
 
 def capacitor_recharge():
-    capacitor_recharge = 105468.75
-    return capacitor_recharge
+    value = 105468.75
+    return value
+
 
 def simulation_matrix():
-    simulation_matrix = capacitor.capacitor_time_simulator(build_module_list(),
-                                                           capacitor_amount(),
-                                                           capacitor_recharge())
-    return simulation_matrix
+    matrix = Capacitor.capacitor_time_simulator(build_module_list(),
+                                              capacitor_amount(),
+                                              capacitor_recharge())
+    return matrix
+
 
 def regen_matrix():
-    regen_matrix = formulas.capacitor_shield_regen_matrix(capacitor_amount(), capacitor_recharge())
-    return regen_matrix
+    matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount(), capacitor_recharge())
+    return matrix
 
-def test_peak_capacitor_regen():
-    # Check that the peak capacitor regen is the expected delta and percent
-    expected_capacitor_delta = 8.887120876962797
-    expected_capacitor_percent = 0.24
+
+def regen_peak():
+    matrix = regen_matrix()
     high_water_percent = 0
     high_water_delta = 0
-    matrix = regen_matrix()
     for item in matrix:
         if high_water_delta < item['DeltaAmount']:
             high_water_percent = item['Percent']
             high_water_delta = item['DeltaAmount']
 
-    assert expected_capacitor_delta == high_water_delta
-    assert expected_capacitor_percent == high_water_percent
+    return {'PeakDelta': high_water_delta, 'PeakPercent': high_water_percent}
 
 
+def test_peak_capacitor_regen_percentage():
+    # Check that the peak capacitor regen is the expected percent
+    expected_capacitor_percent = 0.24
+    peak = regen_peak()
+    assert expected_capacitor_percent == peak['PeakPercent']
+
+
+def test_peak_capacitor_regen_delta():
+    # Check that the peak capacitor regen is the expected delta
+    expected_capacitor_delta = 8.887120876962797
+    peak = regen_peak()
+    assert expected_capacitor_delta == peak['PeakDelta']

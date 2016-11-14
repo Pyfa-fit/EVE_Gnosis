@@ -1,6 +1,6 @@
 # noinspection PyPackageRequirements
-from gnosis.simulations.capacitor import capacitor
-from gnosis.formulas.formulas import formulas
+from gnosis.simulations.capacitor import Capacitor
+from gnosis.formulas.formulas import Formulas
 from datetime import datetime
 
 module_list = []
@@ -55,8 +55,8 @@ module_list.append(
     }
 )  # Reactive Armor Hardener
 
-return_value = capacitor.capacitor_time_simulator(module_list, capacitor_amount, capacitor_recharge)
-return_matrix = formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
+return_value = Capacitor.capacitor_time_simulator(module_list, capacitor_amount, capacitor_recharge)
+return_matrix = Formulas.capacitor_shield_regen_matrix(capacitor_amount, capacitor_recharge)
 pass  # Add break here if you want to see anything.
 
 print("End time: ", datetime.now().time())
