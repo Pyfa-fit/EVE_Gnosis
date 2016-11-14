@@ -60,7 +60,7 @@ def build_module_list():
             'Amount': -40,
             'CycleTime': 4500,
         }
-    )  # Small Ancilliary Armor Repairer
+    )  # Small Ancilliary Armor Repairer (no paste)
 
     module_list.append(
         {
