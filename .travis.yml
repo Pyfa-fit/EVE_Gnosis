@@ -1,20 +1,21 @@
 language: python
 python:
-  - '3.5'
+- '3.5'
 env:
-  - TOXENV=py35
-  - TOXENV=pep8
-  global:
-    secure: "GjWm0u7oobLXakqxs19BI/Eu28mXGOFu8KVZzv6gGkQ3v+cvw6T0cdiTr8M1jXQVqE3V2t7EDnK9oXILNuT2uueYfD2WbF5weT/RDT1GxmtmD7IUlLWKqZo58FXIpQ2n6LtTTOn1GkjOgu/HUvJhNocvEbbrE65wVTwe99DGJq1nyo9BePNBjKr89EzvgeEbDe0XCwqexPlY1fruDCu7+UMa5ST1UA1oMmSj7NKAOFcus/VNRudyCyb9pK51W9qHk6BbpOJegfobV7U9DO9CbAgvNpEbzcZ0DtjphEexg+anzLZCbxn20COSAih89qb+lP/EOGOvtC5D6q8J5SgTBaLJL/WnUf40bDCGm46G3zCyFfLZTdAxjrwXnOv+2yk8o5jXNGhGzb+1uvOw+rtJsxDJ+ZfrXS2l6zQZ+IOHirpUGltQAus9ItupWPm4o7UqSxArU2+Qvs0D1vY6OMmIB8PrS+xwcp95T+wx4bCBn1T1IwUJncgB79/KRtHNtkUlj0I5pBW8j881hJP8U7LNubUes8vdg41MOovXhHW5EwJQ0W0arVuDQ32NTFOncjFVtMxOwVjSBXq8IQIVr/4h6nJ9cxojdM7a5FS415A1eJrcKqrX1LxRnev8ecnlp/CxHuh+gruqQK3jJXfmdtolTALiLAHm8bGB4Ee4fkE0Anw="
+- TOXENV=py35
+- TOXENV=pep8
 before_install:
-  - pip install tox
+- pip install tox
 script:
-  - tox
+- tox
 after_success:
-  - coveralls
+- coveralls
 deploy:
   provider: pypi
-  distributions: "sdist bdist_wheel"
   user: Ebag333
+  password:
+    secure: y1QYTyFxOKE/BGw19w1p2+z2P+20U07fJDmMMtm6k0lpPz1QDhnuqeYyI8IWXg9zrV81kq9WyicrhTzKq6h6RvoBFpdv2l8daHz9Oq6pezz+Y0NRSAwqQ16t0rakvKxGj+WIDN6JIWirtGJbDr/VFHgypk4ZnIUyPCBqhUaX24nf9ts8jn+/CwKCKcaOvc7yQcIJWcv1eI0kTm/GYcep/iIovnoVEtWxMC2ZrHxqvsGfWFR3ZMBXD0LgBTfYrsRTBC1PQATBsty5LJ/KbG7cUo18XH2t1bbfMJVkLxKO0k135WE9zlkv9RrNqzVFtz/G3IYMxfbYvxvUNUioRX7XI7nLOm3wpRM0+Ov49BscDEP4HCi1i6K5pPHHroOvEOr2pR3fiNbVdU5bHHeDG0R+s1XDcqNoxn4zkbcStboP2g4ngJdWqR20k6KFc8ubPcoMUHkjbSYHOjcT58jb/8m8e519Nwqf3pvJUlz0ciqSKktX0lzkMNdko7/88xuMnX7eD3KTtfuhiNvhkQTmub3ELPSEqucfpKA47+0vo+vxeHksxPRuym4DxoBeVcYiqADrjonE4cGFf7XlLt4Yo+4buhbsFgdF8GfySGdcGhfgRV+Q8IIh3bpS6wxZ1woHsYsesCgCy55NULDeUiVwvfv/gpu64tR47CEL6cEaJlrhaTs=
   on:
-    repo: Ebag333/gnosis
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: Ebag333/Gnosis
