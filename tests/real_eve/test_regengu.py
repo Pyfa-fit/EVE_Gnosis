@@ -15,7 +15,7 @@ def build_module_list():
     '''
     Note that not all modules effect cap.  Even though the full fit is below,most of the modules have no impact on cap.
 
-    [Tengu, Ebag Trescientas's Tengu]
+    [Tengu, Ebag Trescientas's RegenGu]
 
     Capacitor Flux Coil II
     Damage Control II
@@ -134,3 +134,17 @@ def test_peak_capacitor_regen():
     peak = regen_peak()
     assert expected_capacitor_percent == peak['PeakPercent']
     assert expected_capacitor_delta == peak['PeakDelta']
+
+
+def test_simulation():
+    expected_cached_run_count = 390
+    expected_low_water_mark = 3153.2261050206575
+    expected_time = 540000
+    matrix = simulation_matrix()
+    cached_runs_count = 0
+    for _ in matrix['Cached Runs']:
+        cached_runs_count += 1
+
+    assert cached_runs_count == expected_cached_run_count
+    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
+    assert matrix['Stability']['Time'] == expected_time

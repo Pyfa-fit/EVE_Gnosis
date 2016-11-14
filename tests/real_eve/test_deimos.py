@@ -13,54 +13,69 @@ def build_module_list():
     module_list = []
 
     '''
-    [Vengeance, Heavy Tackle]
+    Note that not all modules effect cap.  Even though the full fit is below,most of the modules have no impact on cap.
 
-    Energized Adaptive Nano Membrane II
-    Small Ancillary Armor Repairer
+    [Deimos, LCB Deimos]
+
     Reactive Armor Hardener
-    True Sansha Adaptive Nano Plating
+    Energized Adaptive Nano Membrane II
+    Energized Adaptive Nano Membrane II
+    Energized Explosive Membrane II
+    Magnetic Field Stabilizer II
+    Medium Armor Repairer II
 
-    5MN Quad LiF Restrained Microwarpdrive
-    J5b Enduring Warp Scrambler
-    X5 Enduring Stasis Webifier
+    50MN Quad LiF Restrained Microwarpdrive
+    Stasis Webifier II
+    Small Electrochemical Capacitor Booster I, Navy Cap Booster 100
+    Large Compact Pb-Acid Cap Battery
 
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Rocket Launcher II, Nova Rage Rocket
-    Small Energy Nosferatu II
+    Heavy Ion Blaster II, Void M
+    Heavy Ion Blaster II, Void M
+    Heavy Ion Blaster II, Void M
+    Heavy Ion Blaster II, Void M
+    Heavy Ion Blaster II, Void M
 
-    Small Anti-Thermal Pump II
-    Small Auxiliary Nano Pump II
+    Medium Auxiliary Nano Pump I
+    Medium Auxiliary Nano Pump I
     '''
+    # Deimos Modules
+
+    turret_slots = 5
+    turret_count = 0
+    while turret_count < turret_slots:
+        module_list.append(
+            {
+                'Amount': -3.06403125,
+                'CycleTime': 2899.8000000000006,
+                'ReloadTime': 5000,
+                'Charges': 120,
+            }
+        )  # 5 x Heavy Ion Blaster II with Void ammo
+        turret_count += 1
 
     module_list.append(
         {
-            'Amount': 10,
-            'CycleTime': 2500,
+            'Amount': -135,
+            'CycleTime': 10000,
         }
-    )  # Small T2 Nos
+    )  # 50mn Quad LiF Restrained Microwarpdrive
 
     module_list.append(
         {
-            'Amount': -1.5,
+            'Amount': -4.5,
             'CycleTime': 5000,
         }
-    )  # J5b Enduring Warp Scrambler
+    )  # Stasis Webifier II
 
     module_list.append(
         {
-            'Amount': -1.5,
-            'CycleTime': 5000,
+            'Amount': 100,
+            'CycleTime': 12000,
+            'ReloadTime': 10000,
+            'Charges': 4,
+            'DelayTime': 10000,  # Delay running this right away, so we don't waste charges
         }
-    )  # X5 Enduring Statis Webifier
-
-    module_list.append(
-        {
-            'Amount': -40,
-            'CycleTime': 4500,
-        }
-    )  # Small Ancilliary Armor Repairer
+    )  # Small Electrochemical Capacitor Booster I
 
     module_list.append(
         {
@@ -69,16 +84,23 @@ def build_module_list():
         }
     )  # Reactive Armor Hardener
 
+    module_list.append(
+        {
+            'Amount': -160,
+            'CycleTime': 9000,
+        }
+    )  # Medium Armor Repairer II
+
     return module_list
 
 
 def capacitor_amount():
-    value = 375
+    value = 2830
     return value
 
 
 def capacitor_recharge():
-    value = 105468.75
+    value = 168750
     return value
 
 
@@ -106,19 +128,19 @@ def regen_peak():
     return {'PeakDelta': high_water_delta, 'PeakPercent': high_water_percent}
 
 
-def test_peak_capacitor():
+def test_peak_capacitor_regen():
     # Check that the peak capacitor regen is the expected percent and delta
     expected_capacitor_percent = 0.24
-    expected_capacitor_delta = 8.887120876962797
+    expected_capacitor_delta = 41.92167610022477
     peak = regen_peak()
     assert expected_capacitor_percent == peak['PeakPercent']
     assert expected_capacitor_delta == peak['PeakDelta']
 
 
 def test_simulation():
-    expected_cached_run_count = 871
-    expected_low_water_mark = 153.99624594529422
-    expected_time = 1332000
+    expected_cached_run_count = 226
+    expected_low_water_mark = 1339.2587796349806
+    expected_time = 180000
     matrix = simulation_matrix()
     cached_runs_count = 0
     for _ in matrix['Cached Runs']:
