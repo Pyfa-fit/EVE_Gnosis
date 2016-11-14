@@ -116,15 +116,10 @@ def regen_peak():
     return {'PeakDelta': high_water_delta, 'PeakPercent': high_water_percent}
 
 
-def test_peak_capacitor_regen_percentage():
-    # Check that the peak capacitor regen is the expected percent
+def test_peak_capacitor():
+    # Check that the peak capacitor regen is the expected percent and delta
     expected_capacitor_percent = 0.24
-    peak = regen_peak()
-    assert expected_capacitor_percent == peak['PeakPercent']
-
-
-def test_peak_capacitor_regen_delta():
-    # Check that the peak capacitor regen is the expected delta
     expected_capacitor_delta = 8.887120876962797
     peak = regen_peak()
+    assert expected_capacitor_percent == peak['PeakPercent']
     assert expected_capacitor_delta == peak['PeakDelta']

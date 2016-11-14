@@ -105,8 +105,8 @@ def capacitor_recharge():
 
 def simulation_matrix():
     matrix = Capacitor.capacitor_time_simulator(build_module_list(),
-                                              capacitor_amount(),
-                                              capacitor_recharge())
+                                                capacitor_amount(),
+                                                capacitor_recharge())
     return matrix
 
 
@@ -127,15 +127,10 @@ def regen_peak():
     return {'PeakDelta': high_water_delta, 'PeakPercent': high_water_percent}
 
 
-def test_peak_capacitor_regen_percentage():
-    # Check that the peak capacitor regen is the expected percent
+def test_peak_capacitor_regen():
+    # Check that the peak capacitor regen is the expected percent and delta
     expected_capacitor_percent = 0.23
-    peak = regen_peak()
-    assert expected_capacitor_percent == peak['PeakPercent']
-
-
-def test_peak_capacitor_regen_delta():
-    # Check that the peak capacitor regen is the expected delta
     expected_capacitor_delta = 191.33109953033863
     peak = regen_peak()
+    assert expected_capacitor_percent == peak['PeakPercent']
     assert expected_capacitor_delta == peak['PeakDelta']
