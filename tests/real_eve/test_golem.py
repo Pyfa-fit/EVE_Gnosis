@@ -99,6 +99,8 @@ def build_module_list():
         {
             'Amount': 3200,
             'CycleTime': 11250,
+            'ReloadTime': 10000,
+            'Charges': 1,
             'FireAtPercent': .2,
         }
     )  # Dark Blood Heavy Capacitor Booster, Navy Cap Booster 3200
@@ -155,9 +157,9 @@ def test_peak_capacitor_regen():
 
 def test_simulation():
     expected_matrix_size = 288
-    expected_cached_run_count = 285
-    expected_low_water_mark = 1753.5463454941842
-    expected_time = 128000
+    expected_cached_run_count = 464
+    expected_low_water_mark = 1621.8674385430204
+    expected_time = 307500
 
     matrix = simulation_matrix()
 
