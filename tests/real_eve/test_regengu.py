@@ -144,7 +144,7 @@ def test_simulation():
     expected_time = 540000
 
     matrix = simulation_matrix()
-    
+
     cached_runs_count = 0
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1

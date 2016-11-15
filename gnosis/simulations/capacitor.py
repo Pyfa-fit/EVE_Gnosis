@@ -103,7 +103,7 @@ class Capacitor(object):
                     if (new_charges <= 0 or new_charges is False) and reload_time:
                         module_time += reload_time
 
-                    # If we're out of charges, and charges doesn't equal false, reset our charge count so we're reloaded
+                    # If we're out of charges, and charges != False, reset our charge count so we're reloaded
                     if new_charges <= 0 and new_charges is not False:
                         module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
 
