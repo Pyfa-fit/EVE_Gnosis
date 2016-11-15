@@ -13,7 +13,8 @@ def build_module_list():
     module_list = []
 
     '''
-    Note that not all modules effect cap.  Even though the full fit is below,most of the modules have no impact on cap.
+    Note that not all modules effect cap.
+    Even though the full fit is below,most of the modules have no impact on cap.
 
     [Golem, TANKINESSISKING]
 
