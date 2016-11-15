@@ -108,22 +108,29 @@ def regen_peak():
 
 def test_peak_capacitor():
     # Check that the peak capacitor regen is the expected percent and delta
+    expected_matrix_size = 288
     expected_capacitor_percent = 0.24
     expected_capacitor_delta = 8.887120876962797
+
     peak = regen_peak()
+
+    assert sys.getsizeof(peak) == expected_matrix_size
     assert expected_capacitor_percent == peak['PeakPercent']
     assert expected_capacitor_delta == peak['PeakDelta']
 
 
 def test_simulation():
+    expected_matrix_size = 288
     expected_cached_run_count = 871
     expected_low_water_mark = 153.99624594529422
     expected_time = 1332000
+
     matrix = simulation_matrix()
     cached_runs_count = 0
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
+    assert sys.getsizeof(matrix) == expected_matrix_size
     assert cached_runs_count == expected_cached_run_count
     assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
     assert matrix['Stability']['Time'] == expected_time
