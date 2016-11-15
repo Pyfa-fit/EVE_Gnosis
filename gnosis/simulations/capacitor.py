@@ -72,6 +72,18 @@ class Capacitor(object):
             for i, module in enumerate(module_timers):
                 module_time = module['Time'] - elapsed_time
 
+                # Find our what percent we fire off the module at.
+                # Added so we can only fire off a module if the cap drops too low.
+                try:
+                    percent_fire = module_list[module['ID']]['FireAtPercent']
+                except KeyError:
+                    percent_fire = False
+
+                if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and percent_fire is not False) and module_time <= 0:
+                    # This module should only run if our cap is too low (below a certain percentage.
+                    # If we're above that percentage, add 1 second to our time so we check it next tick.
+                    module_time += 1000
+
                 if module_time <= 0:
                     # Time to run the module
                     current_capcitor_amount += module_list[module['ID']]['Amount']
