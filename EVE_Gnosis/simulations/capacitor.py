@@ -1,6 +1,6 @@
 import operator
 
-from gnosis.formulas.formulas import Formulas
+from EVE_Gnosis.formulas.formulas import Formulas
 
 
 class Capacitor(object):

@@ -5,7 +5,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # Add Gnosis module to python paths
 sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
 
-from gnosis.simulations.capacitor import Capacitor
+from EVE_Gnosis.simulations.capacitor import Capacitor
 
 
 def test_module_reactivation_delay_no_charges():
