@@ -79,7 +79,8 @@ class Capacitor(object):
                 except KeyError:
                     percent_fire = False
 
-                if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and percent_fire is not False) and module_time <= 0:
+                if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and
+                            percent_fire is not False) and module_time <= 0:
                     # This module should only run if our cap is too low (below a certain percentage.
                     # If we're above that percentage, add 1 second to our time so we check it next tick.
                     module_time += 1000
