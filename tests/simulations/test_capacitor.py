@@ -26,7 +26,7 @@ def test_module_reactivation_delay_no_charges():
             'CycleTime': 12000,
             'Charges': False,
             'ReloadTime': 180000,
-        },
+        }, # Micro Jump Drive
         {
             'Amount': -1,
             'CycleTime': 1000,
