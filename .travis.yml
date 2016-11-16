@@ -7,6 +7,7 @@ env:
 - TOXENV=pep8
 before_install:
 - pip install tox
+- pip install requests==2.11.1
 script:
 - tox
 after_success:
