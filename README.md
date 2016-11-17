@@ -1,4 +1,4 @@
-# Gnosis
+# Gnosis [![Build Status](https://travis-ci.org/Ebag333/EVE_Gnosis.svg?branch=master)](https://travis-ci.org/Ebag333/EVE_Gnosis)
 Various Classes to simulate various functions of EVE Online
 
 Gnosis is the common Greek noun for knowledge (in the nominative case γνῶσις f.).
