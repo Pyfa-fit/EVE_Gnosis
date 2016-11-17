@@ -53,100 +53,105 @@ class Capacitor(object):
 
         # print("Full Run")
         cache_runs_dict = []
-        while run_tick:
-            count_ticks += 1
-            module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
 
-            # Get the time until the next module runs.
-            elapsed_time = module_timers[0]['Time']
-            total_time_count += elapsed_time
-            # print("Seconds elapsed: " + str(elapsed_time))
+        if module_timers:
+            while run_tick:
+                count_ticks += 1
+                module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
 
-            # Run our capacitor regen
-            new_capacitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
-                                                                  capacitor_time, elapsed_time)
+                # Get the time until the next module runs.
+                elapsed_time = module_timers[0]['Time']
+                total_time_count += elapsed_time
+                # print("Seconds elapsed: " + str(elapsed_time))
 
-            delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount
-            current_capcitor_amount = new_capacitor_amount
+                # Run our capacitor regen
+                new_capacitor_amount = Formulas.capacitor_shield_tick(max_capacitor_amount, current_capcitor_amount,
+                                                                      capacitor_time, elapsed_time)
 
-            for i, module in enumerate(module_timers):
-                module_time = module['Time'] - elapsed_time
+                delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount
+                current_capcitor_amount = new_capacitor_amount
 
-                # Find our what percent we fire off the module at.
-                # Added so we can only fire off a module if the cap drops too low.
-                try:
-                    percent_fire = module_list[module['ID']]['FireAtPercent']
-                except KeyError:
-                    percent_fire = False
+                for i, module in enumerate(module_timers):
+                    module_time = module['Time'] - elapsed_time
 
-                if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and
-                            percent_fire is not False) and module_time <= 0:
-                    # This module should only run if our cap is too low (below a certain percentage.
-                    # If we're above that percentage, add 1 second to our time so we check it next tick.
-                    module_time += 1000
-
-                if module_time <= 0:
-                    # Time to run the module
-                    current_capcitor_amount += module_list[module['ID']]['Amount']
-                    module_time = module_list[module['ID']]['CycleTime']
-                    # print("Applying cap modification: " + str(module_list[module['ID']]['Amount']))
-
-                    # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
-                    if current_capcitor_amount > max_capacitor_amount:
-                        current_capcitor_amount = max_capacitor_amount
-                    elif current_capcitor_amount < 0:
-                        current_capcitor_amount = 0
-
-                    # Find our reload time, set to False if doesn't exist
+                    # Find our what percent we fire off the module at.
+                    # Added so we can only fire off a module if the cap drops too low.
                     try:
-                        reload_time = module_list[module['ID']]['ReloadTime']
+                        percent_fire = module_list[module['ID']]['FireAtPercent']
                     except KeyError:
-                        reload_time = False
+                        percent_fire = False
 
-                    # Find how many charges we have, and subtract 1 if we have more than 0
-                    try:
-                        new_charges = module['Charges']
-                        if new_charges is not False and new_charges > 0:
-                            new_charges = module['Charges'] - 1
-                    except KeyError:
-                        new_charges = False
+                    if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and
+                                percent_fire is not False) and module_time <= 0:
+                        # This module should only run if our cap is too low (below a certain percentage.
+                        # If we're above that percentage, add 1 second to our time so we check it next tick.
+                        module_time += 1000
 
-                    # If we are out of charges, or charges is false and we still have a reload (reactivation delay),
-                    # then delay the next execution by the reload_time
-                    if (new_charges <= 0 or new_charges is False) and reload_time:
-                        module_time += reload_time
+                    if module_time <= 0:
+                        # Time to run the module
+                        current_capcitor_amount += module_list[module['ID']]['Amount']
+                        module_time = module_list[module['ID']]['CycleTime']
+                        # print("Applying cap modification: " + str(module_list[module['ID']]['Amount']))
 
-                    # If we're out of charges, and charges != False, reset our charge count so we're reloaded
-                    if new_charges <= 0 and new_charges is not False:
-                        module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
+                        # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
+                        if current_capcitor_amount > max_capacitor_amount:
+                            current_capcitor_amount = max_capacitor_amount
+                        elif current_capcitor_amount < 0:
+                            current_capcitor_amount = 0
 
-                # Set new values
-                module_timers[i]['Time'] = module_time
+                        # Find our reload time, set to False if doesn't exist
+                        try:
+                            reload_time = module_list[module['ID']]['ReloadTime']
+                        except KeyError:
+                            reload_time = False
 
-            cache_runs_dict.append(
-                {
-                    'Current Time': total_time_count,
-                    'Current Capacitor': current_capcitor_amount,
-                    'Capacitor Percentage': round(current_capcitor_amount / max_capacitor_amount, 2),
-                    'Capacitor Regen Delta': delta_capacitor_regen,
-                }
-            )
+                        # Find how many charges we have, and subtract 1 if we have more than 0
+                        try:
+                            new_charges = module['Charges']
+                            if new_charges is not False and new_charges > 0:
+                                new_charges = module['Charges'] - 1
+                        except KeyError:
+                            new_charges = False
 
-            if low_water_mark > current_capcitor_amount:
-                # Found a new capacitor low water mark.  Mark it, so we can report it later.
-                low_water_mark = current_capcitor_amount
-                low_water_mark_elapsed_time = total_time_count
-                last_drought = 0
-            elif current_capcitor_amount == 0:
-                # We've run out of cap, go ahead and break out of the loop.
-                break
-            else:
-                last_drought += 1
+                        # If we are out of charges, or charges is false and we still have a reload (reactivation delay),
+                        # then delay the next execution by the reload_time
+                        if (new_charges <= 0 or new_charges is False) and reload_time:
+                            module_time += reload_time
 
-                if last_drought > 100:
-                    # We have performed 100 loops since the last low water mark was found.
-                    # Break out as we are highly likely to be cap stable here.
+                        # If we're out of charges, and charges != False, reset our charge count so we're reloaded
+                        if new_charges <= 0 and new_charges is not False:
+                            module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
+
+                    # Set new values
+                    module_timers[i]['Time'] = module_time
+
+                cache_runs_dict.append(
+                    {
+                        'Current Time': total_time_count,
+                        'Current Capacitor': current_capcitor_amount,
+                        'Capacitor Percentage': round(current_capcitor_amount / max_capacitor_amount, 2),
+                        'Capacitor Regen Delta': delta_capacitor_regen,
+                    }
+                )
+
+                if low_water_mark > current_capcitor_amount:
+                    # Found a new capacitor low water mark.  Mark it, so we can report it later.
+                    low_water_mark = current_capcitor_amount
+                    low_water_mark_elapsed_time = total_time_count
+                    last_drought = 0
+                elif current_capcitor_amount == 0:
+                    # We've run out of cap, go ahead and break out of the loop.
                     break
+                else:
+                    last_drought += 1
+
+                    if last_drought > 100:
+                        # We have performed 100 loops since the last low water mark was found.
+                        # Break out as we are highly likely to be cap stable here.
+                        break
+        else:
+            low_water_mark_elapsed_time = 0
+            low_water_mark = max_capacitor_amount
 
         stability_dict = {
             'Time': low_water_mark_elapsed_time,
