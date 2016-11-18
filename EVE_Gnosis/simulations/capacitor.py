@@ -117,7 +117,7 @@ class Capacitor(object):
                             try:
                                 module_time += module_list[module['ID']]['ReactivationDelay']
                             except KeyError:
-                                #Key doesn't exist, this is okay
+                                # Key doesn't exist, this is okay
                                 pass
 
                         if new_charges <= 0 and new_charges is not False and reload_time:
@@ -126,7 +126,7 @@ class Capacitor(object):
                             module_time += reload_time
                             module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
                         elif new_charges and new_charges is not False and reload_time:
-                            #Reduce our
+                            # Reduce our
                             module_timers[i]['Charges'] = new_charges
 
                     # Set new values
