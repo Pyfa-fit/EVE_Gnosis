@@ -5,7 +5,9 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # Add Gnosis module to python paths
 sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
 
+# noinspection PyPep8
 from EVE_Gnosis.simulations.capacitor import Capacitor
+# noinspection PyPep8
 from EVE_Gnosis.formulas.formulas import Formulas
 
 
@@ -142,6 +144,14 @@ def test_simulation():
     expected_cached_run_count = 390
     expected_low_water_mark = 3153.2261050206575
     expected_time = 540000
+    expected_capacitor_tick_0_percent = 0.91
+    expected_capacitor_tick_0_time = 0
+    expected_capacitor_tick_7_percent = 0.78
+    expected_capacitor_tick_7_time = 12000
+    expected_capacitor_tick_8_percent = 0.82
+    expected_capacitor_tick_8_time = 15000
+    expected_capacitor_tick_max_run_percent = 0.68
+    expected_capacitor_tick_max_run_time = 728000
 
     matrix = simulation_matrix()
 
@@ -152,3 +162,12 @@ def test_simulation():
     assert cached_runs_count == expected_cached_run_count
     assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
     assert matrix['Stability']['Time'] == expected_time
+    assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
+    assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
+    assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']
+    assert expected_capacitor_tick_7_time == matrix['Cached Runs'][7]['Current Time']
+    assert expected_capacitor_tick_8_percent == matrix['Cached Runs'][8]['Capacitor Percentage']
+    assert expected_capacitor_tick_8_time == matrix['Cached Runs'][8]['Current Time']
+    assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1][
+        'Capacitor Percentage']
+    assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']

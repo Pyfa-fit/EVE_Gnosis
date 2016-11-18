@@ -5,7 +5,9 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # Add Gnosis module to python paths
 sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
 
+# noinspection PyPep8
 from EVE_Gnosis.simulations.capacitor import Capacitor
+# noinspection PyPep8
 from EVE_Gnosis.formulas.formulas import Formulas
 
 
@@ -86,7 +88,7 @@ def build_module_list():
             }
         )  # 2 x Pithum A-Type Adaptive Invulnerability Field
         resist_count += 1
-        resist_delay += resist_cycle_time/resist_slots
+        resist_delay += resist_cycle_time / resist_slots
 
     module_list.append(
         {
@@ -160,6 +162,14 @@ def test_simulation():
     expected_cached_run_count = 464
     expected_low_water_mark = 1621.8674385430204
     expected_time = 307500
+    expected_capacitor_tick_0_percent = 0.95
+    expected_capacitor_tick_0_time = 0
+    expected_capacitor_tick_7_percent = 0.91
+    expected_capacitor_tick_7_time = 5000
+    expected_capacitor_tick_8_percent = 0.91
+    expected_capacitor_tick_8_time = 6000
+    expected_capacitor_tick_max_run_percent = 0.41
+    expected_capacitor_tick_max_run_time = 403200
 
     matrix = simulation_matrix()
 
@@ -171,3 +181,12 @@ def test_simulation():
     assert cached_runs_count == expected_cached_run_count
     assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
     assert matrix['Stability']['Time'] == expected_time
+    assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
+    assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
+    assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']
+    assert expected_capacitor_tick_7_time == matrix['Cached Runs'][7]['Current Time']
+    assert expected_capacitor_tick_8_percent == matrix['Cached Runs'][8]['Capacitor Percentage']
+    assert expected_capacitor_tick_8_time == matrix['Cached Runs'][8]['Current Time']
+    assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1][
+        'Capacitor Percentage']
+    assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']

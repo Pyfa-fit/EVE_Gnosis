@@ -113,14 +113,21 @@ class Capacitor(object):
                         except KeyError:
                             new_charges = False
 
-                        # If we are out of charges, or charges is false and we still have a reload (reactivation delay),
-                        # then delay the next execution by the reload_time
-                        if (new_charges <= 0 or new_charges is False) and reload_time:
-                            module_time += reload_time
+                        if not new_charges:
+                            try:
+                                module_time += module_list[module['ID']]['ReactivationDelay']
+                            except KeyError:
+                                #Key doesn't exist, this is okay
+                                pass
 
-                        # If we're out of charges, and charges != False, reset our charge count so we're reloaded
-                        if new_charges <= 0 and new_charges is not False:
+                        if new_charges <= 0 and new_charges is not False and reload_time:
+                            # If we are out of charges, or charges is false and we have a reload time,
+                            # then delay the next execution by the reload_time
+                            module_time += reload_time
                             module_timers[i]['Charges'] = module_list[module['ID']]['Charges']
+                        elif new_charges and new_charges is not False and reload_time:
+                            #Reduce our
+                            module_timers[i]['Charges'] = new_charges
 
                     # Set new values
                     module_timers[i]['Time'] = module_time
