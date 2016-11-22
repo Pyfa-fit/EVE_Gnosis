@@ -1,5 +1,11 @@
+import os
 import sys
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Add Gnosis module to python paths
+sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
+
+# noinspection PyPep8
 from EVE_Gnosis.simulations.capacitor import Capacitor
 
 
@@ -48,7 +54,6 @@ def test_small_ancilliary_armor_repairer():
     assert expected_capacitor_tick_8_time == matrix['Cached Runs'][8]['Current Time']
     assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count-1]['Capacitor Percentage']
     assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count-1]['Current Time']
-
 
 def test_small_ancilliary_armor_repairer_no_paste():
     expected_matrix_size = 288
