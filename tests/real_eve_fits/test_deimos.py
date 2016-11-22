@@ -1,7 +1,14 @@
+import os
 import sys
 
-from EVE_Gnosis.formulas.formulas import Formulas
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Add Gnosis module to python paths
+sys.path.append(os.path.realpath(os.path.join(script_dir, '..', '..')))
+
+# noinspection PyPep8
 from EVE_Gnosis.simulations.capacitor import Capacitor
+# noinspection PyPep8
+from EVE_Gnosis.formulas.formulas import Formulas
 
 
 def build_module_list():
