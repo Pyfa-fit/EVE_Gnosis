@@ -48,7 +48,7 @@ class Formulas(object):
             regen_matrix.append(
                 {
                     'Percent': round(percent, 2),
-                    'CapacitorAmountPostTick': tick_amount,
+                    'AmountPostTick': tick_amount,
                     'DeltaAmount': tick_amount - current_amount
                 }
             )
@@ -57,7 +57,7 @@ class Formulas(object):
         regen_matrix.append(
             {
                 'Percent': 1,
-                'CapacitorAmountPostTick': capacitor_amount,
+                'AmountPostTick': capacitor_amount,
                 'DeltaAmount': 0
             }
         )

@@ -12,7 +12,7 @@ def get_values_from_matrix(value_matrix, percent):
     for values in value_matrix:
         if values['Percent'] == percent:
             return {'Percent': values['Percent'],
-                    'CapacitorAmountPostTick': values['CapacitorAmountPostTick'],
+                    'AmountPostTick': values['AmountPostTick'],
                     'DeltaAmount': values['DeltaAmount']}
 
     return False
@@ -156,7 +156,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_0():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -167,7 +167,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_1():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -178,7 +178,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_2():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -189,7 +189,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_3():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -200,7 +200,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_4():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -211,7 +211,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_5():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -222,7 +222,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_10():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -233,7 +233,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_20():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -244,7 +244,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_30():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -255,7 +255,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_40():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -266,7 +266,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_50():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -277,7 +277,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_60():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -288,7 +288,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_70():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -299,7 +299,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_80():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -310,7 +310,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_90():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -321,7 +321,7 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_99():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']
 
 
@@ -332,5 +332,5 @@ def test_capacitor_shield_regen_matrix_1000_100000_percent_100():
     return_matrix = Formulas.capacitor_shield_regen_matrix(1000, 100000)
     return_value = get_values_from_matrix(return_matrix, expected_percent)
     assert expected_percent == return_value['Percent']
-    assert expected_amount == return_value['CapacitorAmountPostTick']
+    assert expected_amount == return_value['AmountPostTick']
     assert expected_delta == return_value['DeltaAmount']

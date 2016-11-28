@@ -11,9 +11,9 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 def test_heavy_ion_blaster_ii_void():
     expected_matrix_size = 288
-    expected_cached_run_count = 3265
-    expected_low_water_mark = 0
-    expected_time = 1917409.47999992
+    expected_cached_run_count = 3364
+    expected_low_water_mark = 2.069232064593132
+    expected_time = 1916829.51999992
     expected_capacitor_tick_0_percent = 1
     expected_capacitor_tick_0_time = 0
     expected_capacitor_tick_7_percent = 1
@@ -21,7 +21,7 @@ def test_heavy_ion_blaster_ii_void():
     expected_capacitor_tick_8_percent = 1
     expected_capacitor_tick_8_time = 4639.680000000001
     expected_capacitor_tick_max_run_percent = 0
-    expected_capacitor_tick_max_run_time = 1917989.4399999199
+    expected_capacitor_tick_max_run_time = 2018409.47999992
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen

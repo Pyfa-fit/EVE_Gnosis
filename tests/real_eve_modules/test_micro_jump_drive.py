@@ -11,17 +11,17 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 def test_micro_jump_drive():
     expected_matrix_size = 288
-    expected_cached_run_count = 14
-    expected_low_water_mark = 0
-    expected_time = 2304000
+    expected_cached_run_count = 113
+    expected_low_water_mark = 568.0036963311873
+    expected_time = 2112000
     expected_capacitor_tick_0_percent = 0.92
     expected_capacitor_tick_0_time = 0
     expected_capacitor_tick_7_percent = 0.37
     expected_capacitor_tick_7_time = 1344000
     expected_capacitor_tick_8_percent = 0.29
     expected_capacitor_tick_8_time = 1536000
-    expected_capacitor_tick_max_run_percent = 0
-    expected_capacitor_tick_max_run_time = 2496000
+    expected_capacitor_tick_max_run_percent = 0.06
+    expected_capacitor_tick_max_run_time = 2404000
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen

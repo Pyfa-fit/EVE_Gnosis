@@ -5,7 +5,7 @@ parsed_reqs = parse_requirements('requirements.txt', session=False)
 install_requires = [str(ir.req) for ir in parsed_reqs]
 
 setup(name='EVE_Gnosis',
-      version='2016.11.27post2',  # Year.Month.Day (use post# if multiple releases in 1 day)
+      version='2016.11.28',  # Year.Month.Day (use post# if multiple releases in 1 day)
       description='EVE Online Formulas and Simulations',
       author='Ebag Trescientas',
       author_email='ebagola@gmail.com',
