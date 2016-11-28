@@ -89,8 +89,9 @@ class Capacitor(object):
                         # This module should only run if our cap is too low (below a certain percentage.
                         # If we're above that percentage, add 1 second to our time so we check it next tick.
                         module_time += 1000
-                    elif module_list[module['ID']]['Amount'] < 0 and (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0:
-                        #We don't have enough cap to run this module.  Delay by 1 second.
+                    elif module_list[module['ID']]['Amount'] < 0 and \
+                                    (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0:
+                        # We don't have enough cap to run this module.  Delay by 1 second.
                         module_time += 1000
 
                     if module_time <= 0:
