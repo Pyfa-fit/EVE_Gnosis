@@ -10,6 +10,7 @@ class Capacitor(object):
     @staticmethod
     def capacitor_time_simulator(module_list, max_capacitor_amount, capacitor_time):
         run_tick = True
+        failed_to_run_modules = False
         low_water_mark = current_capcitor_amount = max_capacitor_amount
         count_ticks = low_water_mark_elapsed_time = total_time_count = last_drought = 0
 
@@ -93,6 +94,7 @@ class Capacitor(object):
                                     (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0:
                         # We don't have enough cap to run this module.  Delay by 1 second.
                         module_time += 1000
+                        failed_to_run_modules = True
 
                     if module_time <= 0:
                         # Time to run the module
@@ -191,6 +193,7 @@ class Capacitor(object):
 
         stability_dict = {
             'Time': low_water_mark_elapsed_time,
-            'LowWaterMark': low_water_mark
+            'LowWaterMark': low_water_mark,
+            'FailedToRunModules': failed_to_run_modules,
         }
         return {'Stability': stability_dict, 'Cached Runs': cache_runs_dict}
