@@ -96,7 +96,7 @@ class Capacitor(object):
                         module_time = module_list[module['ID']]['CycleTime']
                         # print("Applying cap modification: " + str(module_list[module['ID']]['Amount']))
 
-                        #Populate how much reps we got
+                        # Populate the mount of reps we get each tick
                         try:
                             if module_list[module['ID']]['ShieldRepair']:
                                 current_shield_repair += module_list[module['ID']]['ShieldRepair']
@@ -114,7 +114,6 @@ class Capacitor(object):
                                 current_hull_repair += module_list[module['ID']]['HullRepair']
                         except KeyError:
                             current_hull_repair += 0
-
 
                         # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
                         if current_capcitor_amount > max_capacitor_amount:
