@@ -8,12 +8,12 @@ class Capacitor(object):
         pass
 
     @staticmethod
-    def capacitor_time_simulator(module_list, max_capacitor_amount, capacitor_time):
+    def capacitor_time_simulator(module_list, max_capacitor_amount, capacitor_time, run_time=600000):
         run_tick = True
         failed_to_run_modules = False
         failed_to_run_modules_time = 0
         low_water_mark = current_capcitor_amount = max_capacitor_amount
-        count_ticks = low_water_mark_elapsed_time = total_time_count = last_drought = 0
+        count_ticks = low_water_mark_elapsed_time = total_time_count = 0
 
         # We have to handle the first run special, because there is no reload.
         module_timers = []
@@ -179,25 +179,19 @@ class Capacitor(object):
                     # Found a new capacitor low water mark.  Mark it, so we can report it later.
                     low_water_mark = current_capcitor_amount
                     low_water_mark_elapsed_time = total_time_count
-                    last_drought = 0
-                elif current_capcitor_amount == 0:
-                    # We've run out of cap, go ahead and break out of the loop.
-                    break
-                else:
-                    last_drought += 1
 
-                    if last_drought > 100:
-                        # We have performed 100 loops since the last low water mark was found.
-                        # Break out as we are highly likely to be cap stable here.
-                        break
+                if total_time_count > run_time:
+                    # We ran for the allotted amount of time.
+                    break
         else:
             low_water_mark_elapsed_time = 0
             low_water_mark = max_capacitor_amount
 
         stability_dict = {
-            'Time': low_water_mark_elapsed_time,
+            'LowWaterMarkTime': low_water_mark_elapsed_time,
             'LowWaterMark': low_water_mark,
             'FailedToRunModules': failed_to_run_modules,
             'FailedToRunModulesTime': failed_to_run_modules_time,
+            'RunTime': run_time,
         }
         return {'Stability': stability_dict, 'Cached Runs': cache_runs_dict}

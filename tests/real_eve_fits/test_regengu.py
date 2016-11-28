@@ -141,7 +141,7 @@ def test_peak_capacitor_regen():
 
 
 def test_simulation():
-    expected_cached_run_count = 390
+    expected_cached_run_count = 322
     expected_low_water_mark = 3153.2261050206575
     expected_time = 540000
     expected_capacitor_tick_0_percent = 0.91
@@ -151,7 +151,7 @@ def test_simulation():
     expected_capacitor_tick_8_percent = 0.82
     expected_capacitor_tick_8_time = 15000
     expected_capacitor_tick_max_run_percent = 0.68
-    expected_capacitor_tick_max_run_time = 728000
+    expected_capacitor_tick_max_run_time = 604000
     expected_failed_to_run_modules = False
 
     matrix = simulation_matrix()
@@ -160,9 +160,9 @@ def test_simulation():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
     assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']

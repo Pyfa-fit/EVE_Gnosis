@@ -11,17 +11,17 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 def test_small_ancilliary_armor_repairer():
     expected_matrix_size = 288
-    expected_cached_run_count = 351
-    expected_low_water_mark = 0.0050081131013755
-    expected_time = 2980500
+    expected_cached_run_count = 55
+    expected_low_water_mark = 7800.00032235305
+    expected_time = 603000
     expected_capacitor_tick_0_percent = 1
     expected_capacitor_tick_0_time = 0
     expected_capacitor_tick_7_percent = 0.97
     expected_capacitor_tick_7_time = 31500
     expected_capacitor_tick_8_percent = 0.96
     expected_capacitor_tick_8_time = 96000
-    expected_capacitor_tick_max_run_percent = 0
-    expected_capacitor_tick_max_run_time = 3085000
+    expected_capacitor_tick_max_run_percent = .78
+    expected_capacitor_tick_max_run_time = 603000
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen
@@ -43,9 +43,9 @@ def test_small_ancilliary_armor_repairer():
         cached_runs_count += 1
 
     assert sys.getsizeof(matrix) == expected_matrix_size
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
     assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']
@@ -59,17 +59,17 @@ def test_small_ancilliary_armor_repairer():
 
 def test_small_ancilliary_armor_repairer_no_paste():
     expected_matrix_size = 288
-    expected_cached_run_count = 351
-    expected_low_water_mark = 0.0018744161463786213
-    expected_time = 1120500
+    expected_cached_run_count = 135
+    expected_low_water_mark = 4600.000720432291
+    expected_time = 603000
     expected_capacitor_tick_0_percent = 1
     expected_capacitor_tick_0_time = 0
     expected_capacitor_tick_7_percent = 0.97
     expected_capacitor_tick_7_time = 31500
     expected_capacitor_tick_8_percent = 0.96
     expected_capacitor_tick_8_time = 36000
-    expected_capacitor_tick_max_run_percent = 0
-    expected_capacitor_tick_max_run_time = 1225000
+    expected_capacitor_tick_max_run_percent = .46
+    expected_capacitor_tick_max_run_time = 603000
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen
@@ -89,9 +89,9 @@ def test_small_ancilliary_armor_repairer_no_paste():
         cached_runs_count += 1
 
     assert sys.getsizeof(matrix) == expected_matrix_size
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
     assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']

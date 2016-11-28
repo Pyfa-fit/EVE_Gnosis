@@ -125,7 +125,7 @@ def test_peak_capacitor():
 
 def test_simulation():
     expected_matrix_size = 288
-    expected_cached_run_count = 120
+    expected_cached_run_count = 285
     expected_low_water_mark = 211.91023291385895
     expected_time = 31500
     expected_capacitor_tick_0_percent = 0.86
@@ -134,8 +134,8 @@ def test_simulation():
     expected_capacitor_tick_7_time = 12500
     expected_capacitor_tick_8_percent = 0.7
     expected_capacitor_tick_8_time = 13500
-    expected_capacitor_tick_max_run_percent = 0.92
-    expected_capacitor_tick_max_run_time = 250000
+    expected_capacitor_tick_max_run_percent = 0.71
+    expected_capacitor_tick_max_run_time = 602500
     expected_failed_to_run_modules = False
 
     matrix = simulation_matrix()
@@ -144,9 +144,9 @@ def test_simulation():
         cached_runs_count += 1
 
     assert sys.getsizeof(matrix) == expected_matrix_size
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
     assert expected_capacitor_tick_7_percent == matrix['Cached Runs'][7]['Capacitor Percentage']

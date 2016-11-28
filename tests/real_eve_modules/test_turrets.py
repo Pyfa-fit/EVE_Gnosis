@@ -11,17 +11,17 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 def test_heavy_ion_blaster_ii_void():
     expected_matrix_size = 288
-    expected_cached_run_count = 3364
-    expected_low_water_mark = 2.069232064593132
-    expected_time = 1916829.51999992
+    expected_cached_run_count = 1027
+    expected_low_water_mark = 6853.240350730942
+    expected_time = 600038.9600000032
     expected_capacitor_tick_0_percent = 1
     expected_capacitor_tick_0_time = 0
     expected_capacitor_tick_7_percent = 1
     expected_capacitor_tick_7_time = 4059.7200000000007
     expected_capacitor_tick_8_percent = 1
     expected_capacitor_tick_8_time = 4639.680000000001
-    expected_capacitor_tick_max_run_percent = 0
-    expected_capacitor_tick_max_run_time = 2018409.47999992
+    expected_capacitor_tick_max_run_percent = 0.69
+    expected_capacitor_tick_max_run_time = 600038.9600000032
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen
@@ -53,9 +53,9 @@ def test_heavy_ion_blaster_ii_void():
         cached_runs_count += 1
 
     assert sys.getsizeof(matrix) == expected_matrix_size
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
 
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']

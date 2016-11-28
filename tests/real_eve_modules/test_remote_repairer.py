@@ -12,7 +12,7 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 def test_medium_s95a_scoped_remote_shield_booster():
     # Numbers come from an Osprey with V skills
     expected_matrix_size = 288
-    expected_cached_run_count = 101
+    expected_cached_run_count = 226
     expected_low_water_mark = 10000
     expected_time = 0
     expected_capacitor_tick_0_percent = 1
@@ -22,8 +22,8 @@ def test_medium_s95a_scoped_remote_shield_booster():
     expected_capacitor_tick_8_percent = 1
     expected_capacitor_tick_8_time = 21333.333333333332
     expected_capacitor_tick_max_run_percent = 1
-    expected_capacitor_tick_max_run_time = 266666.66666666634
-    expected_total_shield_reps = 49237.5
+    expected_capacitor_tick_max_run_time = 600000.0000000005
+    expected_total_shield_reps = 110175.0
     expected_total_armor_reps = 0
     expected_total_hull_reps = 0
 
@@ -62,9 +62,9 @@ def test_medium_s95a_scoped_remote_shield_booster():
         total_hull_reps += _['Hull Reps']
 
     assert sys.getsizeof(matrix) == expected_matrix_size
-    assert cached_runs_count == expected_cached_run_count
-    assert matrix['Stability']['LowWaterMark'] == expected_low_water_mark
-    assert matrix['Stability']['Time'] == expected_time
+    assert expected_cached_run_count == cached_runs_count
+    assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
+    assert expected_time == matrix['Stability']['LowWaterMarkTime']
 
     assert expected_capacitor_tick_0_percent == matrix['Cached Runs'][0]['Capacitor Percentage']
     assert expected_capacitor_tick_0_time == matrix['Cached Runs'][0]['Current Time']
