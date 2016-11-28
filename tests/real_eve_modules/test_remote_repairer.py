@@ -43,7 +43,7 @@ def test_medium_s95a_scoped_remote_shield_booster():
                 'DelayTime': delay_time,  # Stagger reps
                 'ShieldRepair': 487.5,
             }
-        )  # 5 x Heavy Ion Blaster II with Void ammo
+        )  # 3x medium s95a scoped remote shield booster
         turret_count += 1
         delay_time += cycle_time / turret_slots
 
