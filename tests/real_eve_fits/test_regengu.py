@@ -152,6 +152,7 @@ def test_simulation():
     expected_capacitor_tick_8_time = 15000
     expected_capacitor_tick_max_run_percent = 0.68
     expected_capacitor_tick_max_run_time = 728000
+    expected_failed_to_run_modules = False
 
     matrix = simulation_matrix()
 
@@ -171,3 +172,4 @@ def test_simulation():
     assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1][
         'Capacitor Percentage']
     assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']
+    assert expected_failed_to_run_modules == matrix['Stability']['FailedToRunModules']

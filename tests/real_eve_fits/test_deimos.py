@@ -159,6 +159,7 @@ def test_simulation():
     expected_capacitor_tick_max_run_time = 305999.9999999998
     expected_armor_repair_amount_tick_0 = 657.761137524
     expected_armor_repair_amount_tick_225 = 657.761137524
+    expected_failed_to_run_modules = False
 
     matrix = simulation_matrix()
 
@@ -180,3 +181,4 @@ def test_simulation():
     assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']
     assert expected_armor_repair_amount_tick_0 == matrix['Cached Runs'][0]['Armor Reps']
     assert expected_armor_repair_amount_tick_225 == matrix['Cached Runs'][225]['Armor Reps']
+    assert expected_failed_to_run_modules == matrix['Stability']['FailedToRunModules']

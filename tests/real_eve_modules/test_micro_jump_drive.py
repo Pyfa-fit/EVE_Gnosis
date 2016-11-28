@@ -22,6 +22,7 @@ def test_micro_jump_drive():
     expected_capacitor_tick_8_time = 1536000
     expected_capacitor_tick_max_run_percent = 0.06
     expected_capacitor_tick_max_run_time = 2404000
+    expected_failed_to_run_modules = True
 
     capacitor_amount = 10000
     capacitor_recharge = 9999999999999  # Can't set to 0 (divide by 0), set to a large number to kill regen
@@ -55,3 +56,4 @@ def test_micro_jump_drive():
     assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1][
         'Capacitor Percentage']
     assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']
+    assert expected_failed_to_run_modules == matrix['Stability']['FailedToRunModules']
