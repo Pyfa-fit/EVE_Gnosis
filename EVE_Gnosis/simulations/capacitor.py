@@ -70,6 +70,9 @@ class Capacitor(object):
 
                 delta_capacitor_regen = new_capacitor_amount - current_capcitor_amount
                 current_capcitor_amount = new_capacitor_amount
+                current_shield_repair = 0
+                current_armor_repair = 0
+                current_hull_repair = 0
 
                 for i, module in enumerate(module_timers):
                     module_time = module['Time'] - elapsed_time
@@ -92,6 +95,26 @@ class Capacitor(object):
                         current_capcitor_amount += module_list[module['ID']]['Amount']
                         module_time = module_list[module['ID']]['CycleTime']
                         # print("Applying cap modification: " + str(module_list[module['ID']]['Amount']))
+
+                        #Populate how much reps we got
+                        try:
+                            if module_list[module['ID']]['ShieldRepair']:
+                                current_shield_repair += module_list[module['ID']]['ShieldRepair']
+                        except KeyError:
+                            current_shield_repair += 0
+
+                        try:
+                            if module_list[module['ID']]['ArmorRepair']:
+                                current_armor_repair += module_list[module['ID']]['ArmorRepair']
+                        except KeyError:
+                            current_armor_repair += 0
+
+                        try:
+                            if module_list[module['ID']]['HullRepair']:
+                                current_hull_repair += module_list[module['ID']]['HullRepair']
+                        except KeyError:
+                            current_hull_repair += 0
+
 
                         # Sanity check so we don't go over our total capacitor size, and we don't go under 0.
                         if current_capcitor_amount > max_capacitor_amount:
@@ -138,6 +161,9 @@ class Capacitor(object):
                         'Current Capacitor': current_capcitor_amount,
                         'Capacitor Percentage': round(current_capcitor_amount / max_capacitor_amount, 2),
                         'Capacitor Regen Delta': delta_capacitor_regen,
+                        'Shield Reps': current_shield_repair,
+                        'Armor Reps': current_armor_repair,
+                        'Hull Reps': current_hull_repair,
                     }
                 )
 

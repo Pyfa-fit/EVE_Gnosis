@@ -90,6 +90,7 @@ def build_module_list():
         {
             'Amount': -160,
             'CycleTime': 9000,
+            'ArmorRepair': 657.761137524,
         }
     )  # Medium Armor Repairer II
 
@@ -156,6 +157,8 @@ def test_simulation():
     expected_capacitor_tick_8_time = 14499.000000000004
     expected_capacitor_tick_max_run_percent = 0.51
     expected_capacitor_tick_max_run_time = 305999.9999999998
+    expected_armor_repair_amount_tick_0 = 657.761137524
+    expected_armor_repair_amount_tick_225 = 657.761137524
 
     matrix = simulation_matrix()
 
@@ -173,6 +176,7 @@ def test_simulation():
     assert expected_capacitor_tick_7_time == matrix['Cached Runs'][7]['Current Time']
     assert expected_capacitor_tick_8_percent == matrix['Cached Runs'][8]['Capacitor Percentage']
     assert expected_capacitor_tick_8_time == matrix['Cached Runs'][8]['Current Time']
-    assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1][
-        'Capacitor Percentage']
+    assert expected_capacitor_tick_max_run_percent == matrix['Cached Runs'][cached_runs_count - 1]['Capacitor Percentage']
     assert expected_capacitor_tick_max_run_time == matrix['Cached Runs'][cached_runs_count - 1]['Current Time']
+    assert expected_armor_repair_amount_tick_0 == matrix['Cached Runs'][0]['Armor Reps']
+    assert expected_armor_repair_amount_tick_225 == matrix['Cached Runs'][225]['Armor Reps']
