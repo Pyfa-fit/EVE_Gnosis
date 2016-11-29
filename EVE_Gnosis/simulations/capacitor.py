@@ -3,7 +3,7 @@ import operator
 from ..formulas.formulas import Formulas
 
 
-class Capacitor(object):
+class Capacitor:
     def __init__(self):
         pass
 
@@ -92,8 +92,10 @@ class Capacitor(object):
                         # If we're above that percentage, add 1 second to our time so we check it next tick.
                         module_time += 1000
                     elif module_list[module['ID']]['Amount'] < 0 and \
-                                    (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0:
+                                    (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0 and \
+                                    not module_list[module['ID']]['Projected']:
                         # We don't have enough cap to run this module.  Delay by 1 second.
+                        # Only apply to local modules
                         module_time += 1000
                         failed_to_run_modules = True
                         if not failed_to_run_modules_time:
