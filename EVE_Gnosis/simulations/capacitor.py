@@ -86,6 +86,12 @@ class Capacitor:
                     except KeyError:
                         percent_fire = False
 
+                    # See if the module is projected or not
+                    try:
+                        projected = module_list[module['ID']]['Projected']
+                    except KeyError:
+                        projected = False
+
                     if ((current_capcitor_amount / max_capacitor_amount) > percent_fire and
                                 percent_fire is not False) and module_time <= 0:
                         # This module should only run if our cap is too low (below a certain percentage.
@@ -93,7 +99,7 @@ class Capacitor:
                         module_time += 1000
                     elif module_list[module['ID']]['Amount'] < 0 and \
                                     (current_capcitor_amount + module_list[module['ID']]['Amount']) < 0 and \
-                                    not module_list[module['ID']]['Projected']:
+                                    not projected:
                         # We don't have enough cap to run this module.  Delay by 1 second.
                         # Only apply to local modules
                         module_time += 1000
