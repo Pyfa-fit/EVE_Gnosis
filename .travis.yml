@@ -10,8 +10,10 @@ before_install:
 - pip install requests==2.11.1
 install:
   - pip install codecov
+  - pip install pytest-cov
 script:
 - tox
+- py.test --cov=./
 - coverage run tests.py
 after_success:
 - coveralls
