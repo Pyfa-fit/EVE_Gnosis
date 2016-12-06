@@ -1,4 +1,5 @@
-# Gnosis [![Build Status](https://travis-ci.org/Ebag333/EVE_Gnosis.svg?branch=master)](https://travis-ci.org/Ebag333/EVE_Gnosis)
+# Gnosis [![Build Status](https://travis-ci.org/Ebag333/EVE_Gnosis.svg?branch=master)](https://travis-ci.org/Ebag333/EVE_Gnosis) [![codecov](https://codecov.io/gh/Ebag333/EVE_Gnosis/branch/master/graph/badge.svg)](https://codecov.io/gh/Ebag333/EVE_Gnosis)
+
 
 Various Classes to simulate various functions of EVE Online
 
