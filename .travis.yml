@@ -8,8 +8,11 @@ env:
 before_install:
 - pip install tox
 - pip install requests==2.11.1
+install:
+  - pip install codecov
 script:
 - tox
+- coverage run tests.py
 after_success:
 - coveralls
 - bash <(curl -s https://codecov.io/bash)
