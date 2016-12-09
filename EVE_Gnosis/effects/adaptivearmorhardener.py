@@ -4,17 +4,14 @@ class AdaptiveArmorHardener:
 
     @staticmethod
     def run_cycle(resistances, damage_pattern, adaptive_pattern=None, adjust_amount=6):
-
-        if adaptive_pattern is None:
-            adaptive_pattern = {}
-        applied_damage = {}
-
         # If an adaptive pattern isn't passed in, set to a default of 15
         if not adaptive_pattern:
+            adaptive_pattern = {}
             for _ in damage_pattern:
                 adaptive_pattern[_] = 15
 
-        # Reset applied damage back to 0
+        # Reset applied damage to 0
+        applied_damage = {}
         for applied_damage_type, applied_damage_amount in applied_damage:
             applied_damage[applied_damage_type] = 0
 
