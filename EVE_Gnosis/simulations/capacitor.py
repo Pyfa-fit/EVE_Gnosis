@@ -1,4 +1,4 @@
-import operator
+from operator import itemgetter
 
 from ..formulas.formulas import Formulas
 
@@ -59,7 +59,7 @@ class Capacitor:
         if module_timers:
             while run_tick:
                 count_ticks += 1
-                module_timers = sorted(module_timers, key=operator.itemgetter('Time'))
+                module_timers = sorted(module_timers, key=itemgetter('Time'))
 
                 # Get the time until the next module runs.
                 elapsed_time = module_timers[0]['Time']
