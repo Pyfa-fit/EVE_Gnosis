@@ -41,10 +41,10 @@ def test_adaptive_armor_hardener():
         adjust_amount
     )
 
-    assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 12
-    assert return_matrix['AdaptivePattern']['Thermal'] == 18
-    assert return_matrix['AdaptivePattern']['Kinetic'] == 18
-    assert return_matrix['AdaptivePattern']['Explosive'] == 12
+    assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 9
+    assert return_matrix['AdaptivePattern']['Thermal'] == 21
+    assert return_matrix['AdaptivePattern']['Kinetic'] == 21
+    assert return_matrix['AdaptivePattern']['Explosive'] == 9
 
     for _ in return_matrix['AppliedDamage']:
         key, value = _
@@ -80,10 +80,10 @@ def test_adaptive_armor_hardener_defaults():
         damage_profile,
     )
 
-    assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 12
-    assert return_matrix['AdaptivePattern']['Thermal'] == 18
-    assert return_matrix['AdaptivePattern']['Kinetic'] == 18
-    assert return_matrix['AdaptivePattern']['Explosive'] == 12
+    assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 9
+    assert return_matrix['AdaptivePattern']['Thermal'] == 21
+    assert return_matrix['AdaptivePattern']['Kinetic'] == 21
+    assert return_matrix['AdaptivePattern']['Explosive'] == 9
 
     for _ in return_matrix['AppliedDamage']:
         key, value = _
@@ -128,9 +128,9 @@ def test_adaptive_armor_hardener_preadjusted():
     )
 
     assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 0
-    assert return_matrix['AdaptivePattern']['Thermal'] == 3
-    assert return_matrix['AdaptivePattern']['Kinetic'] == 31
-    assert return_matrix['AdaptivePattern']['Explosive'] == 26
+    assert return_matrix['AdaptivePattern']['Thermal'] == 4.5
+    assert return_matrix['AdaptivePattern']['Kinetic'] == 32.5
+    assert return_matrix['AdaptivePattern']['Explosive'] == 23
 
     for _ in return_matrix['AppliedDamage']:
         key, value = _

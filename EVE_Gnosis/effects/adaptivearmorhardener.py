@@ -29,9 +29,9 @@ class AdaptiveArmorHardener:
         for idx, single_applied_damage in enumerate(applied_damage):
             key, value = single_applied_damage
             if idx <= 1:
-                if adaptive_pattern[key] > adjust_amount / 2:
-                    transferred_amount += 3
-                    adaptive_pattern[key] -= 3
+                if adaptive_pattern[key] > adjust_amount:
+                    transferred_amount += adjust_amount
+                    adaptive_pattern[key] -= adjust_amount
                 else:
                     transferred_amount += adaptive_pattern[key]
                     adaptive_pattern[key] = 0
