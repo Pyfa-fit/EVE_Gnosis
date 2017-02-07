@@ -100,6 +100,49 @@ def test_adaptive_armor_hardener_defaults():
             assert True is False
 
 
+
+def test_adaptive_armor_hardener_single_damage_type():
+    from time import time
+    start = time()
+    resists = {
+        'Elecromagnetic': 0,
+        'Thermal': .20,
+        'Kinetic': .40,
+        'Explosive': .50,
+    }
+    damage_profile = {
+        'Elecromagnetic': .50,
+        'Thermal': 0,
+        'Kinetic': 0,
+        'Explosive': 0,
+    }
+
+    return_matrix = AdaptiveArmorHardener.run_cycle(
+        resists,
+        damage_profile,
+    )
+
+    assert return_matrix['AdaptivePattern']['Elecromagnetic'] == 27
+    assert return_matrix['AdaptivePattern']['Thermal'] == 15
+    assert return_matrix['AdaptivePattern']['Kinetic'] == 9
+    assert return_matrix['AdaptivePattern']['Explosive'] == 9
+
+    for _ in return_matrix['AppliedDamage']:
+        key, value = _
+        if key == 'Elecromagnetic':
+            assert value == .5
+        elif key == 'Thermal':
+            assert value == 0
+        elif key == 'Kinetic':
+            assert value == 0
+        elif key == 'Explosive':
+            assert value == 0
+        else:
+            # We have damage types we don't know about. Catch this and make sure our assert fails.
+            assert True is False
+
+    print("Elapsed: " + str(time()-start))
+
 def test_adaptive_armor_hardener_preadjusted():
     resists = {
         'Elecromagnetic': 0,

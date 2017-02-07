@@ -17,12 +17,14 @@ class AdaptiveArmorHardener:
 
         # Apply damage tuple to current resists
         for _ in damage_pattern:
-            applied_damage[_] = resistances[_] * damage_pattern[_]
+            applied_damage[_] = (1 - resistances[_]) * damage_pattern[_]
 
         # Sort applied damage tuple
         applied_damage = sorted(applied_damage.items(),
                                 key=lambda x: (x[1], x[0])
                                 )
+
+        count_damage_types = len([{type: amount} for type, amount in applied_damage if amount])
 
         # Adjust our resists
         transferred_amount = 0
@@ -35,8 +37,10 @@ class AdaptiveArmorHardener:
                 else:
                     transferred_amount += adaptive_pattern[key]
                     adaptive_pattern[key] = 0
-            elif idx >= len(applied_damage) - 2:
+            elif idx >= (len(applied_damage) - 2) and count_damage_types >= 2:
                 adaptive_pattern[key] += transferred_amount / 2
+            elif idx >= (len(applied_damage) - 1) and count_damage_types == 1:
+                adaptive_pattern[key] += transferred_amount
             else:
                 continue
 
