@@ -24,6 +24,7 @@ class AdaptiveArmorHardener:
                                 key=lambda x: (x[1], x[0])
                                 )
 
+        # Get how many incoming damage types we have
         count_damage_types = len([{type: amount} for type, amount in applied_damage if amount])
 
         # Adjust our resists
@@ -42,7 +43,7 @@ class AdaptiveArmorHardener:
                     adaptive_pattern[key] = 0
             elif 1 < idx <= (len(applied_damage) - 2) and count_damage_types == 1 and fail_to_steal:
                 # We failed to steal resist from the bottom two resists.
-                # If we only have  1 damage type, we're allowed to steal from the next resist.
+                # If we only have 1 damage type, we're allowed to steal from the next resist.
                 if adaptive_pattern[key] > adjust_amount:
                     transferred_amount += adjust_amount
                     adaptive_pattern[key] -= adjust_amount
