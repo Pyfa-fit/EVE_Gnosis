@@ -28,9 +28,21 @@ class AdaptiveArmorHardener:
 
         # Adjust our resists
         transferred_amount = 0
+        fail_to_steal = False
         for idx, single_applied_damage in enumerate(applied_damage):
             key, value = single_applied_damage
             if idx <= 1:
+                if adaptive_pattern[key] == 0:
+                    fail_to_steal = True
+                elif adaptive_pattern[key] > adjust_amount:
+                    transferred_amount += adjust_amount
+                    adaptive_pattern[key] -= adjust_amount
+                else:
+                    transferred_amount += adaptive_pattern[key]
+                    adaptive_pattern[key] = 0
+            elif 1 < idx <= (len(applied_damage) - 2) and count_damage_types == 1 and fail_to_steal:
+                # We failed to steal resist from the bottom two resists.
+                # If we only have  1 damage type, we're allowed to steal from the next resist.
                 if adaptive_pattern[key] > adjust_amount:
                     transferred_amount += adjust_amount
                     adaptive_pattern[key] -= adjust_amount
