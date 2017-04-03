@@ -128,7 +128,7 @@ build_script:
 
 test_script:
   - tox
-  - "python py.test --cov=./"
+  - "py.test --cov=./"
   # Run the project tests
   # - "%CMD_IN_ENV% python C:/projects/eve-gnosis/setup.py nosetests"
 
