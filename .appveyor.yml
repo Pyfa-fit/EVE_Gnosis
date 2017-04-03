@@ -117,12 +117,12 @@ install:
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
   # target Python version and architecture
-  - "%CMD_IN_ENV% pip install -r C:\\projects\\eve-gnosis\\requirements.txt"
-  - "%CMD_IN_ENV% pip install -r C:/projects/eve-gnosis/requirements_test.txt"
+  - "%CMD_IN_ENV% pip install -r C:\\projects\\eve-gnosis\\EVE_Gnosis\\requirements.txt"
+  - "%CMD_IN_ENV% pip install -r requirements_test.txt"
 
 build_script:
   # Build the compiled extension
-  - "%CMD_IN_ENV% python C:/projects/eve-gnosis/setup.py build"
+  - "%CMD_IN_ENV% python setup.py build"
 
 test_script:
   - tox
