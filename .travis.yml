@@ -6,14 +6,12 @@ env:
 - TOXENV=py35
 - TOXENV=pep8
 before_install:
-- pip install tox
-- pip install requests==2.11.1
+ - pip install requirements.txt
+ - pip install requirements_test.txt
 install:
-  - pip install codecov
-  - pip install pytest-cov
 script:
-- tox
-- py.test --cov=./
+ - tox
+ - py.test --cov=./
 after_success:
 - coveralls
 - bash <(curl -s https://codecov.io/bash)
