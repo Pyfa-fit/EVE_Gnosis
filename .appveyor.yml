@@ -124,11 +124,11 @@ install:
 
 build_script:
   # Build the compiled extension
-  - "%CMD_IN_ENV% python setup.py build"
+  - "python setup.py build"
 
 test_script:
   - tox
-  - "%CMD_IN_ENV% pythonpy.test --cov=./"
+  - "pythonpy.test --cov=./"
   # Run the project tests
   # - "%CMD_IN_ENV% python C:/projects/eve-gnosis/setup.py nosetests"
 
