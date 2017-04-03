@@ -4,6 +4,8 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
+    TOXENV: "py35"
+    TOXENV: "pep8"
 
   matrix:
 
@@ -76,9 +78,6 @@ environment:
     - PYTHON: "C:\\Python270-x64"
       PYTHON_VERSION: "2.7.0"
       PYTHON_ARCH: "64"
-
-    - TOXENV=py35
-    - TOXENV=pep8
 
 install:
   # If there is a newer build queued for the same PR, cancel this one.
