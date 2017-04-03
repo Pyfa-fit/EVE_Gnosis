@@ -10,7 +10,6 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 
 def test_heavy_ion_blaster_ii_void():
-    expected_matrix_size = 288
     expected_cached_run_count = 1027
     expected_low_water_mark = 6853.240350730942
     expected_time = 600038.9600000032
@@ -52,7 +51,6 @@ def test_heavy_ion_blaster_ii_void():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']

@@ -10,7 +10,6 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 
 def test_small_ancilliary_armor_repairer():
-    expected_matrix_size = 288
     expected_cached_run_count = 55
     expected_low_water_mark = 7800.00032235305
     expected_time = 603000
@@ -42,7 +41,6 @@ def test_small_ancilliary_armor_repairer():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']
@@ -58,7 +56,6 @@ def test_small_ancilliary_armor_repairer():
 
 
 def test_small_ancilliary_armor_repairer_no_paste():
-    expected_matrix_size = 288
     expected_cached_run_count = 135
     expected_low_water_mark = 4600.000720432291
     expected_time = 603000
@@ -88,7 +85,6 @@ def test_small_ancilliary_armor_repairer_no_paste():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']
