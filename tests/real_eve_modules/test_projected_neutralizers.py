@@ -11,7 +11,6 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 def test_small_t2_nosferatu():
     # Numbers come from an Osprey with V skills
-    expected_matrix_size = 288
     expected_cached_run_count = 962
     expected_low_water_mark = 380.00101482293456
     expected_time = 600625.0
@@ -61,7 +60,6 @@ def test_small_t2_nosferatu():
         total_armor_reps += _['Armor Reps']
         total_hull_reps += _['Hull Reps']
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']
