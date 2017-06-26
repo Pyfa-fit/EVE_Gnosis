@@ -19,7 +19,7 @@ class Capacitor:
         module_timers = []
         # print("First Run")
         for i, module in enumerate(module_list):
-            if module['Amount'] is not None:
+            if module['Amount'] is not None and module['CycleTime'] > 0:
                 module_time = 0
                 try:
                     if module['DelayTime']:
@@ -63,6 +63,7 @@ class Capacitor:
 
                 # Get the time until the next module runs.
                 elapsed_time = module_timers[0]['Time']
+
                 total_time_count += elapsed_time
                 # print("Seconds elapsed: " + str(elapsed_time))
 
