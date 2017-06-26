@@ -1,4 +1,4 @@
-# Gnosis [![Build Status](https://travis-ci.org/Pyfa-fit/EVE_Gnosis.svg?branch=master)](https://travis-ci.org/Pyfa-fit/EVE_Gnosis) [![codecov](https://codecov.io/gh/Ebag333/Pyfa-fit/branch/master/graph/badge.svg)](https://codecov.io/gh/Pyfa-fit/EVE_Gnosis)
+# Gnosis [![Build Status](https://travis-ci.org/Pyfa-fit/EVE_Gnosis.svg?branch=master)](https://travis-ci.org/Pyfa-fit/EVE_Gnosis) [![codecov](https://codecov.io/gh/Pyfa-fit/EVE_Gnosis/branch/master/graph/badge.svg)](https://codecov.io/gh/Pyfa-fit/EVE_Gnosis) [![Code Health](https://landscape.io/github/Pyfa-fit/EVE_Gnosis/master/landscape.svg?style=flat)](https://landscape.io/github/Pyfa-fit/EVE_Gnosis/master)
 
 
 Various classes to simulate various functions of EVE Online
