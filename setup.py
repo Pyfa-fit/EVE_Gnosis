@@ -9,6 +9,6 @@ setup(name='EVE_Gnosis',
       description='EVE Online Formulas and Simulations',
       author='Ebag Trescientas',
       author_email='ebagola@gmail.com',
-      url='https://github.com/Ebag333/EVE_Gnosis',
+      url='https://github.com/Pyfa-fit/EVE_Gnosis',
       packages=find_packages(exclude='tests'),
       )
