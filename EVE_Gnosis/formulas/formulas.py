@@ -63,3 +63,15 @@ class Formulas(object):
         )
 
         return regen_matrix
+
+    @staticmethod
+    def stacking_penalty(value, depth):
+        """
+        :param value:             The value to apply the stacking penalty to
+        :param depth:             How many stacking penalties to apply
+        :return:                  Value after stacking penalties have been applied.
+        """
+        current_effectiveness = 1 / exp(((depth - 1) / 2.67) ** 2.0)
+        new_value = 1 + ((value * current_effectiveness) / 100)
+
+        return new_value

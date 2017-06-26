@@ -10,7 +10,6 @@ from EVE_Gnosis.simulations.capacitor import Capacitor
 
 
 def test_micro_jump_drive():
-    expected_matrix_size = 288
     expected_cached_run_count = 110
     expected_low_water_mark = 568.0036963311873
     expected_time = 2112000
@@ -45,7 +44,6 @@ def test_micro_jump_drive():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']

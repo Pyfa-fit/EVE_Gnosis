@@ -22,7 +22,6 @@ def run_simulation(module_list, capacitor_amount, capacitor_recharge):
 
 
 def test_empty_module_list():
-    expected_matrix_size = 288
     expected_cached_run_count = 0
     expected_low_water_mark = 10000
     expected_time = 0
@@ -39,7 +38,6 @@ def test_empty_module_list():
     for _ in matrix['Cached Runs']:
         cached_runs_count += 1
 
-    assert sys.getsizeof(matrix) == expected_matrix_size
     assert expected_cached_run_count == cached_runs_count
     assert expected_low_water_mark == matrix['Stability']['LowWaterMark']
     assert expected_time == matrix['Stability']['LowWaterMarkTime']
