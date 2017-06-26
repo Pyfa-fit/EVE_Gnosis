@@ -63,6 +63,10 @@ class Capacitor:
 
                 # Get the time until the next module runs.
                 elapsed_time = module_timers[0]['Time']
+
+                if elapsed_time == 0:
+                    elapsed_time = 1000
+
                 total_time_count += elapsed_time
                 # print("Seconds elapsed: " + str(elapsed_time))
 
