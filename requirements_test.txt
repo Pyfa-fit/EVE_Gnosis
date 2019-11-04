@@ -6,4 +6,4 @@ coverage == 4.2
 coveralls == 1.1
 codecov
 tox
-requests == 2.11.1
+requests == 2.20.0
